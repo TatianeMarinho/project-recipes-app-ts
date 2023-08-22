@@ -1,6 +1,12 @@
+import Header from '../../components/header/Header';
+
 function RecipeInProgress() {
   return (
-    <h1>RecipeInProgress</h1>
+    <main>
+      <Header />
+      <h1>RecipeInProgress</h1>
+    </main>
+
   );
 }
 export default RecipeInProgress;
