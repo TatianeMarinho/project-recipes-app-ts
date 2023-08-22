@@ -1,12 +1,6 @@
-import Header from '../../components/header/Header';
-
 function Profile() {
   return (
-    <main>
-      <Header />
-      <h1>Profile</h1>
-    </main>
-
+    <h1>Profile</h1>
   );
 }
 export default Profile;
