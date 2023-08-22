@@ -22,6 +22,10 @@ function Login() {
     return emailIsValid && paswordIsValid;
   };
 
+  const handleSubmit = () => {
+    localStorage.setItem('user', JSON.stringify({ email: inputs.email }));
+  };
+
   return (
     <div>
       <h2>LOGIN</h2>
@@ -48,6 +52,7 @@ function Login() {
           id="login-submit-btn"
           disabled={ !isvalidButton() }
           data-testid="login-submit-btn"
+          onClick={ handleSubmit }
         >
           Enter
         </button>
