@@ -63,7 +63,7 @@ describe('Testando a pagina de Login', () => {
     const inputPassword = screen.getByTestId(passwordInputTestId);
     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'valid@email.com');
+    await userEvent.type(inputEmail, 'valid@e-mail.com');
     await userEvent.type(inputPassword, '7charpsd');
     expect(buttonEntrar).toBeEnabled();
   });
@@ -96,5 +96,23 @@ describe('Testando a pagina de Login', () => {
     await userEvent.type(inputEmail, 'valid@email.com');
     await userEvent.type(inputPassword, '6chpsd');
     expect(buttonEntrar).toBeDisabled();
+  });
+
+  test('Testa se o botão Enter está habilitado com os campos preenchidos corretamente', async () => {
+    render(
+      <RecipesAppProvider>
+        <App />
+      </RecipesAppProvider>,
+    );
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+
+    await userEvent.type(inputEmail, 'valid@email.com');
+    await userEvent.type(inputPassword, '7charpsd');
+    expect(buttonEntrar).toBeEnabled();
+    await userEvent.click(buttonEntrar);
+    const heading = screen.getByText('Recipes');
+    expect(heading).toBeInTheDocument();
   });
 });
