@@ -10,31 +10,34 @@ import FavoriteRecipes from './pages/favoriteRecipes/FavoriteRecipes';
 import Profile from './pages/profile/Profile';
 import Login from './pages/login/Login';
 import Layout from './pages/Layout/Layout';
+import RecipesAppProvider from './context/user-provider';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={ <Login /> } />
-        <Route path="" element={ <Layout /> }>
-          <Route path="/meals" element={ <Recipes /> } />
-          <Route path="/drinks" element={ <Recipes /> } />
-          <Route path="/profile" element={ <Profile /> } />
-          <Route path="/done-recipes" element={ <DoneRecipes /> } />
-          <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
-        </Route>
-        <Route path="/meals/:id-da-receita" element={ <RecipesDetails /> } />
-        <Route path="/drinks/:id-da-receita" element={ <RecipesDetails /> } />
-        <Route
-          path="/meals/:id-da-receita/in-progress"
-          element={ <RecipeInProgress /> }
-        />
-        <Route
-          path="/drinks/:id-da-receita/in-progress"
-          element={ <RecipeInProgress /> }
-        />
-      </Routes>
-    </BrowserRouter>
+    <RecipesAppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={ <Login /> } />
+          <Route path="" element={ <Layout /> }>
+            <Route path="/meals" element={ <Recipes /> } />
+            <Route path="/drinks" element={ <Recipes /> } />
+            <Route path="/profile" element={ <Profile /> } />
+            <Route path="/done-recipes" element={ <DoneRecipes /> } />
+            <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+          </Route>
+          <Route path="/meals/:id-da-receita" element={ <RecipesDetails /> } />
+          <Route path="/drinks/:id-da-receita" element={ <RecipesDetails /> } />
+          <Route
+            path="/meals/:id-da-receita/in-progress"
+            element={ <RecipeInProgress /> }
+          />
+          <Route
+            path="/drinks/:id-da-receita/in-progress"
+            element={ <RecipeInProgress /> }
+          />
+        </Routes>
+      </BrowserRouter>
+    </RecipesAppProvider>
   );
 }
 
