@@ -4,6 +4,10 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import RecipesAppProvider from '../context/user-provider';
 
+const emailInputTestId = 'email-input';
+const passwordInputTestId = 'password-input';
+const buttonEnterTestId = 'login-submit-btn';
+
 describe('Testando a pagina de Login', () => {
   test('Renderiza o input email', () => {
     render(
@@ -12,7 +16,7 @@ describe('Testando a pagina de Login', () => {
       </RecipesAppProvider>,
     );
 
-    const inputEmail = screen.getByTestId('email-input');
+    const inputEmail = screen.getByTestId(emailInputTestId);
     expect(inputEmail).toBeInTheDocument();
   });
 
@@ -23,7 +27,7 @@ describe('Testando a pagina de Login', () => {
       </RecipesAppProvider>,
     );
 
-    const inputPassword = screen.getByTestId('password-input');
+    const inputPassword = screen.getByTestId(passwordInputTestId);
     expect(inputPassword).toBeInTheDocument();
   });
 
@@ -34,7 +38,7 @@ describe('Testando a pagina de Login', () => {
       </RecipesAppProvider>,
     );
 
-    const buttonEntrar = screen.getByTestId('login-submit-btn');
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
     expect(buttonEntrar).toBeInTheDocument();
   });
 
@@ -45,7 +49,7 @@ describe('Testando a pagina de Login', () => {
       </RecipesAppProvider>,
     );
 
-    const buttonEntrar = screen.getByTestId('login-submit-btn');
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
     expect(buttonEntrar).toBeDisabled();
   });
 
@@ -55,9 +59,9 @@ describe('Testando a pagina de Login', () => {
         <App />
       </RecipesAppProvider>,
     );
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const buttonEntrar = screen.getByTestId('login-submit-btn');
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
     await userEvent.type(inputEmail, 'valid@email.com');
     await userEvent.type(inputPassword, '7charpsd');
@@ -70,9 +74,9 @@ describe('Testando a pagina de Login', () => {
         <App />
       </RecipesAppProvider>,
     );
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const buttonEntrar = screen.getByTestId('login-submit-btn');
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
     await userEvent.type(inputEmail, 'invalidemail.com');
     await userEvent.type(inputPassword, '7charpsd');
@@ -85,9 +89,9 @@ describe('Testando a pagina de Login', () => {
         <App />
       </RecipesAppProvider>,
     );
-    const inputEmail = screen.getByTestId('email-input');
-    const inputPassword = screen.getByTestId('password-input');
-    const buttonEntrar = screen.getByTestId('login-submit-btn');
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
     await userEvent.type(inputEmail, 'valid@email.com');
     await userEvent.type(inputPassword, '6chpsd');
