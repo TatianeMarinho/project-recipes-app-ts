@@ -67,5 +67,6 @@ describe('Testando a pagina de Login', () => {
     await userEvent.type(inputEmail, 'valid@email.com');
     await userEvent.type(inputPassword, '6chpsd');
     expect(buttonEntrar).toBeDisabled();
+    console.log('vai passar esse teste?');
   });
 });
