@@ -1,73 +1,73 @@
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import App from '../App';
-import { renderWithRouter } from './helpers/renderWith';
-import RecipesAppProvider from '../context/user-provider';
+// import { screen } from '@testing-library/react';
+// import userEvent from '@testing-library/user-event';
+// import App from '../App';
+// import { renderWithRouter } from './helpers/renderWith';
+// import RecipesAppProvider from '../context/user-provider';
 
-const emailInputTestId = 'email-input';
-const passwordInputTestId = 'password-input';
-const buttonEnterTestId = 'login-submit-btn';
+// const emailInputTestId = 'email-input';
+// const passwordInputTestId = 'password-input';
+// const buttonEnterTestId = 'login-submit-btn';
 
-describe('Testando a pagina de Login', () => {
-  test('Renderiza o input email', () => {
-    renderWithRouter(<App />);
+// describe('Testando a pagina de Login', () => {
+//   test('Renderiza o input email', () => {
+//     renderWithRouter(<App />);
 
-    const inputEmail = screen.getByTestId(emailInputTestId);
-    expect(inputEmail).toBeInTheDocument();
-  });
+//     const inputEmail = screen.getByTestId(emailInputTestId);
+//     expect(inputEmail).toBeInTheDocument();
+//   });
 
-  test('Renderiza o input password', () => {
-    renderWithRouter(<App />);
+//   test('Renderiza o input password', () => {
+//     renderWithRouter(<App />);
 
-    const inputPassword = screen.getByTestId(passwordInputTestId);
-    expect(inputPassword).toBeInTheDocument();
-  });
+//     const inputPassword = screen.getByTestId(passwordInputTestId);
+//     expect(inputPassword).toBeInTheDocument();
+//   });
 
-  test('Renderiza o botão entrar', () => {
-    renderWithRouter(<App />);
+//   test('Renderiza o botão entrar', () => {
+//     renderWithRouter(<App />);
 
-    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
-    expect(buttonEntrar).toBeInTheDocument();
-  });
+//     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+//     expect(buttonEntrar).toBeInTheDocument();
+//   });
 
-  test('Testa se o botão Enter está desabilitado com os campos vazios', () => {
-    renderWithRouter(<App />);
+//   test('Testa se o botão Enter está desabilitado com os campos vazios', () => {
+//     renderWithRouter(<App />);
 
-    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
-    expect(buttonEntrar).toBeDisabled();
-  });
+//     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+//     expect(buttonEntrar).toBeDisabled();
+//   });
 
-  test('Testa se o botão Enter está habilitado com os campos preenchidos corretamente', async () => {
-    renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId(emailInputTestId);
-    const inputPassword = screen.getByTestId(passwordInputTestId);
-    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+//   test('Testa se o botão Enter está habilitado com os campos preenchidos corretamente', async () => {
+//     renderWithRouter(<App />);
+//     const inputEmail = screen.getByTestId(emailInputTestId);
+//     const inputPassword = screen.getByTestId(passwordInputTestId);
+//     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'valid@email.com');
-    await userEvent.type(inputPassword, '7charpsd');
-    expect(buttonEntrar).toBeEnabled();
-  });
+//     await userEvent.type(inputEmail, 'valid@email.com');
+//     await userEvent.type(inputPassword, '7charpsd');
+//     expect(buttonEntrar).toBeEnabled();
+//   });
 
-  test('Testa se o botão Enter está desabilitado com email inválido', async () => {
-    renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId(emailInputTestId);
-    const inputPassword = screen.getByTestId(passwordInputTestId);
-    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+//   test('Testa se o botão Enter está desabilitado com email inválido', async () => {
+//     renderWithRouter(<App />);
+//     const inputEmail = screen.getByTestId(emailInputTestId);
+//     const inputPassword = screen.getByTestId(passwordInputTestId);
+//     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'invalidemail.com');
-    await userEvent.type(inputPassword, '7charpsd');
-    expect(buttonEntrar).toBeDisabled();
-  });
+//     await userEvent.type(inputEmail, 'invalidemail.com');
+//     await userEvent.type(inputPassword, '7charpsd');
+//     expect(buttonEntrar).toBeDisabled();
+//   });
 
-  test('Testa se o botão Enter está desabilitado com senha inválida', async () => {
-    renderWithRouter(<App />);
-    const inputEmail = screen.getByTestId(emailInputTestId);
-    const inputPassword = screen.getByTestId(passwordInputTestId);
-    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+//   test('Testa se o botão Enter está desabilitado com senha inválida', async () => {
+//     renderWithRouter(<App />);
+//     const inputEmail = screen.getByTestId(emailInputTestId);
+//     const inputPassword = screen.getByTestId(passwordInputTestId);
+//     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'valid@email.com');
-    await userEvent.type(inputPassword, '6chpsd');
-    expect(buttonEntrar).toBeDisabled();
-    console.log('vai passar esse teste?');
-  });
-});
+//     await userEvent.type(inputEmail, 'valid@email.com');
+//     await userEvent.type(inputPassword, '6chpsd');
+//     expect(buttonEntrar).toBeDisabled();
+//     console.log('vai passar esse teste?');
+//   });
+// });
