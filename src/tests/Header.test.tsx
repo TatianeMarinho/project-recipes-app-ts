@@ -105,4 +105,20 @@ describe('Verifica se o componente Header renderiz corretamente', () => {
     const titleProfile = screen.getByTestId(PAGETITLE);
     expect(titleProfile).toBeInTheDocument();
   });
+
+  test('Verifica a renderizaçao do Header no /Profile', async () => {
+    renderWithRouter(<App />, { initialEntries: ['/profile'] });
+
+    const titleProfile = screen.getByTestId(PAGETITLE);
+    expect(titleProfile).toBeInTheDocument();
+
+    const profileImg = screen.getByRole('img', { name: /icone de perfil/i });
+    expect(profileImg).toHaveAttribute('src', profileIcon);
+
+    const btnProfile = screen.getByRole('button', { name: /icone de perfil/i });
+    expect(btnProfile).toBeInTheDocument();
+
+    await userEvent.click(btnProfile);
+    expect(titleProfile).toBeInTheDocument();
+  });
 });
