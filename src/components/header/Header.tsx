@@ -15,7 +15,7 @@ function Header() {
         pathname === '/meals' && (
           <>
             <h1 data-testid="page-title">Meals</h1>
-            <button onClick={ () => navigate('/profile') }>
+            <button id="profile-btn" onClick={ () => navigate('/profile') }>
               <img
                 alt="icone de perfil"
                 data-testid="profile-top-btn"
@@ -38,18 +38,22 @@ function Header() {
   pathname === '/drinks' && (
     <>
       <h1 data-testid="page-title">Drinks</h1>
-      <button onClick={ () => navigate('/profile') }>
+      <button id="profile-btn" onClick={ () => navigate('/profile') }>
         <img
           alt="icone de perfil"
           data-testid="profile-top-btn"
           src={ profileIcon }
         />
       </button>
-      <img
-        alt="icone de pesquisa"
-        data-testid="search-top-btn"
-        src={ searchIcon }
-      />
+      <button
+        onClick={ () => setShowSearchBar(!showSearchBar) }
+      >
+        <img
+          src={ searchIcon }
+          alt="icone de pesquisa"
+          data-testid="search-top-btn"
+        />
+      </button>
     </>
   )
 }
@@ -57,7 +61,7 @@ function Header() {
   pathname === '/profile' && (
     <>
       <h1 data-testid="page-title">Profile</h1>
-      <button onClick={ () => navigate('/profile') }>
+      <button id="profile-btn" onClick={ () => navigate('/profile') }>
         <img
           alt="icone de perfil"
           data-testid="profile-top-btn"
@@ -71,7 +75,7 @@ function Header() {
   pathname === '/done-recipes' && (
     <>
       <h1 data-testid="page-title">Done Recipes</h1>
-      <button onClick={ () => navigate('/profile') }>
+      <button id="profile-btn" onClick={ () => navigate('/profile') }>
         <img
           alt="icone de perfil"
           data-testid="profile-top-btn"
@@ -85,7 +89,7 @@ function Header() {
   pathname === '/favorite-recipes' && (
     <>
       <h1 data-testid="page-title">Favorite Recipes</h1>
-      <button onClick={ () => navigate('/profile') }>
+      <button id="profile-btn" onClick={ () => navigate('/profile') }>
         <img
           alt="icone de perfil"
           data-testid="profile-top-btn"
