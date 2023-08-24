@@ -21,6 +21,18 @@ export type FetchAPIType = {
   [key: string]: object[]
 };
 
+export type DrinksType = {
+  idDrink: string,
+  strDrink: string,
+  strDrinkAlternate: string,
+};
+
+export type MealsType = {
+  idMeals: string,
+  strMeals: string,
+  strMealsAlternate: string,
+};
+
 export const INICIAL_LOGIN = {
   email: '',
   password: '',

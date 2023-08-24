@@ -1,30 +1,39 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
-  const { fetchFood, fetchDrinks } = useFetch();
+  const { drinks, food, fetchFood, fetchDrinks } = useFetch();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
     setSelectedFilter(value);
   };
 
-  const handleClick = () => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     if (pathname === '/drinks') {
       fetchDrinks(searchInput, selectedFilter);
+      console.log(drinks);
+      if (drinks.length === 1) {
+        navigate(`/drinks/${drinks[0].idDrink}`);
+      }
     } else {
       fetchFood(searchInput, selectedFilter);
+      if (food.length === 1) {
+        navigate(`/meals/${food[0].idMeals}`);
+      }
     }
 
     setSearchInput('');
   };
 
   return (
-    <form onSubmit={ (e) => e.preventDefault() }>
+    <form>
       <input
         data-testid="search-input"
         name="search"
@@ -66,7 +75,7 @@ function SearchBar() {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ handleClick }
+        onClick={ (e) => handleClick(e) }
       >
         SEARCH
       </button>

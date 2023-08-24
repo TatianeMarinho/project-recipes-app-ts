@@ -22,14 +22,14 @@ function App() {
         <Route path="/done-recipes" element={ <DoneRecipes /> } />
         <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
       </Route>
-      <Route path="/meals/:id-da-receita" element={ <RecipesDetails /> } />
-      <Route path="/drinks/:id-da-receita" element={ <RecipesDetails /> } />
+      <Route path="/meals/:id" element={ <RecipesDetails /> } />
+      <Route path="/drinks/:id" element={ <RecipesDetails /> } />
       <Route
-        path="/meals/:id-da-receita/in-progress"
+        path="/meals/:id/in-progress"
         element={ <RecipeInProgress /> }
       />
       <Route
-        path="/drinks/:id-da-receita/in-progress"
+        path="/drinks/:id/in-progress"
         element={ <RecipeInProgress /> }
       />
     </Routes>
