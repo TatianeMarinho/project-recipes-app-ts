@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { INICIAL_LOGIN } from '../../types/types';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 function Login() {
   const [inputs, setInputs] = useState(INICIAL_LOGIN);
+  const { email, password } = inputs;
   const navigate = useNavigate();
+  const { updateValue } = useLocalStorage('user', JSON.stringify(inputs));
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -17,15 +20,16 @@ function Login() {
 
   const isvalidButton = () => {
     const emailRegex = /^[a-zA-Z0-9.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    const emailIsValid = emailRegex.test(inputs.email);
+    const emailIsValid = emailRegex.test(email);
     const paswordRegex = /^.{7,}$/;
-    const paswordIsValid = paswordRegex.test(inputs.password);
+    const paswordIsValid = paswordRegex.test(password);
     return emailIsValid && paswordIsValid;
   };
 
   const handleSubmit = () => {
-    localStorage.setItem('user', JSON.stringify({ email: inputs.email }));
     navigate('/meals');
+    const newValue = { email };
+    updateValue(JSON.stringify(newValue));
   };
 
   return (
@@ -37,7 +41,7 @@ function Login() {
           name="email"
           id="email-input"
           placeholder="Email"
-          value={ inputs.email }
+          value={ email }
           onChange={ handleInputChange }
           data-testid="email-input"
         />
@@ -46,7 +50,7 @@ function Login() {
           name="password"
           id="password-input"
           placeholder="Password"
-          value={ inputs.password }
+          value={ password }
           onChange={ handleInputChange }
           data-testid="password-input"
         />

@@ -1,13 +1,14 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
 import { renderWithRouter } from './helpers/renderWith';
+import App from '../App';
 
 const emailInputTestId = 'email-input';
 const passwordInputTestId = 'password-input';
 const buttonEnterTestId = 'login-submit-btn';
+const validEmail = 'valid@email.com';
 
-describe('Testando a pagina de Login', () => {
+describe('Testando a página de Login', () => {
   test('Renderiza o input email', () => {
     renderWithRouter(<App />);
 
@@ -42,7 +43,7 @@ describe('Testando a pagina de Login', () => {
     const inputPassword = screen.getByTestId(passwordInputTestId);
     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'valid@email.com');
+    await userEvent.type(inputEmail, validEmail);
     await userEvent.type(inputPassword, '7charpsd');
     expect(buttonEntrar).toBeEnabled();
   });
@@ -64,9 +65,8 @@ describe('Testando a pagina de Login', () => {
     const inputPassword = screen.getByTestId(passwordInputTestId);
     const buttonEntrar = screen.getByTestId(buttonEnterTestId);
 
-    await userEvent.type(inputEmail, 'valid@email.com');
+    await userEvent.type(inputEmail, validEmail);
     await userEvent.type(inputPassword, '6chpsd');
     expect(buttonEntrar).toBeDisabled();
-    console.log('vai passar esse teste?');
   });
 });

@@ -12,6 +12,15 @@ export type InputsLoginTypes = {
   password: string;
 };
 
+export type UseLocalStorageType = {
+  value: string;
+  updateValue: (newValue: string) => void;
+};
+
+export type FetchAPIType = {
+  [key: string]: object[]
+};
+
 export const INICIAL_LOGIN = {
   email: '',
   password: '',

@@ -7,7 +7,7 @@ import profileIcon from '../images/profileIcon.svg';
 
 const PAGETITLE = 'page-title';
 
-describe('Verifica se o componente Header renderiz corretamente', () => {
+describe('Verifica se o componente Header é renderizado corretamente', () => {
   test('Verifica a renderizaçao do Header no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
