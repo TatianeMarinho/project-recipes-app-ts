@@ -6,11 +6,10 @@ function useFetch() {
   const [drinks, setDrinks] = useState<FetchAPIType[]>([]);
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
-
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
       window.alert('Your search must have only 1 (one) character');
     }
-    
+
     switch (selectedFilter) {
       case 'ingredient':
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
@@ -32,10 +31,30 @@ function useFetch() {
     }
   };
 
-  const fetchDrinks = async () => {
-    const drinksResponse = await fetch('https://www.thecocktaildb.com/api.php');
-    const drinksData = await drinksResponse.json();
-    setDrinks(drinksData.drinks);
+  const fetchDrinks = async (searchInput: string, selectedFilter: string) => {
+    if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
+      window.alert('Your search must have only 1 (one) character');
+    }
+
+    switch (selectedFilter) {
+      case 'ingredient':
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`)
+          .then((result) => result.json())
+          .then((data) => setDrinks(data.meals));
+        break;
+      case 'name':
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`)
+          .then((result) => result.json())
+          .then((data) => setDrinks(data.meals));
+        break;
+      case 'firstLetter':
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`)
+          .then((result) => result.json())
+          .then((data) => setDrinks(data.meals));
+        break;
+      default:
+        return [];
+    }
   };
 
   return {

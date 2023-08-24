@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
-  const { fetchFood } = useFetch();
+  const { fetchFood, fetchDrinks } = useFetch();
+  const { pathname } = useLocation();
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
@@ -12,7 +14,12 @@ function SearchBar() {
   };
 
   const handleClick = () => {
-    fetchFood(searchInput, selectedFilter);
+    if (pathname === '/drinks') {
+      fetchDrinks(searchInput, selectedFilter);
+    } else {
+      fetchFood(searchInput, selectedFilter);
+    }
+
     setSearchInput('');
   };
 
