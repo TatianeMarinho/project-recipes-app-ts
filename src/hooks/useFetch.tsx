@@ -6,6 +6,11 @@ function useFetch() {
   const [drinks, setDrinks] = useState<FetchAPIType[]>([]);
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
+
+    if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
+      window.alert('Your search must have only 1 (one) character');
+    }
+    
     switch (selectedFilter) {
       case 'ingredient':
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)

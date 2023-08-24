@@ -17,7 +17,7 @@ function SearchBar() {
   };
 
   return (
-    <form>
+    <form onSubmit={ (e) => e.preventDefault() }>
       <input
         data-testid="search-input"
         name="search"
