@@ -8,12 +8,12 @@ function useFetch() {
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
     switch (selectedFilter) {
       case 'ingredient':
-        fetch(`https://www.themealdb.com/api.php?i=${searchInput}`)
+        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
           .then((result) => result.json())
           .then((data) => setFood(data.meals));
         break;
       case 'name':
-        fetch(`https://www.themealdb.com/api.php?s=${searchInput}`)
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`)
           .then((result) => result.json())
           .then((data) => setFood(data.meals));
         break;
