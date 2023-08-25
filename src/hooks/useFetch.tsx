@@ -23,24 +23,24 @@ function useFetch() {
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setFood(data);
-            setFetchedFood(data);
+            setFood(data.meals);
+            setFetchedFood(data.meals);
           });
         break;
       case 'name':
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setFood(data);
-            setFetchedFood(data);
+            setFood(data.meals);
+            setFetchedFood(data.meals);
           });
         break;
       case 'firstLetter':
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setFood(data);
-            setFetchedFood(data);
+            setFood(data.meals);
+            setFetchedFood(data.meals);
           });
         break;
       default:
@@ -58,24 +58,24 @@ function useFetch() {
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setDrinks(data);
-            setFetchedDrinks(data);
+            setDrinks(data.drinks);
+            setFetchedDrinks(data.drinks);
           });
         break;
       case 'name':
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setDrinks(data);
-            setFetchedDrinks(data);
+            setDrinks(data.drinks);
+            setFetchedDrinks(data.drinks);
           });
         break;
       case 'firstLetter':
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`)
           .then((result) => result.json())
           .then((data) => {
-            setDrinks(data);
-            setFetchedDrinks(data);
+            setDrinks(data.drinks);
+            setFetchedDrinks(data.drinks);
           });
         break;
       default:
