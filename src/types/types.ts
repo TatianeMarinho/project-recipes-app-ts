@@ -1,6 +1,10 @@
 export type UseContextType = {
   login: InputsLoginTypes;
   setLogin: React.Dispatch<React.SetStateAction<InputsLoginTypes>>;
+  fetchedDrinks: DrinksType[];
+  setFetchedDrinks: (value: any) => void;
+  fetchedFood: MealsType[];
+  setFetchedFood: (value: any) => void;
 };
 
 export type UseProviderType = {
@@ -33,7 +37,7 @@ export type MealsType = {
   strMealsAlternate: string,
 };
 
-export const INICIAL_LOGIN = {
+export const INITIAL_LOGIN = {
   email: '',
   password: '',
 };

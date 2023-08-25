@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { INICIAL_LOGIN } from '../../types/types';
+import { INITIAL_LOGIN } from '../../types/types';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 function Login() {
-  const [inputs, setInputs] = useState(INICIAL_LOGIN);
+  const [inputs, setInputs] = useState(INITIAL_LOGIN);
   const { email, password } = inputs;
   const navigate = useNavigate();
   const { updateValue } = useLocalStorage('user', JSON.stringify(inputs));

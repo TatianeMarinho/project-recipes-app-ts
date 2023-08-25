@@ -25,6 +25,7 @@ function SearchBar() {
   };
 
   useEffect(() => {
+    if (!drinks || !food) return;
     if (drinks.length === 1) {
       return navigate(`/drinks/${drinks[0].idDrink}`);
     }
