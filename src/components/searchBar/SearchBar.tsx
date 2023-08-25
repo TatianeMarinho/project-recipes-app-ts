@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useFetch from '../../hooks/useFetch';
 
@@ -19,18 +19,20 @@ function SearchBar() {
     if (pathname === '/drinks') {
       fetchDrinks(searchInput, selectedFilter);
       console.log(drinks);
-      if (drinks.length === 1) {
-        navigate(`/drinks/${drinks[0].idDrink}`);
-      }
     } else {
       fetchFood(searchInput, selectedFilter);
-      if (food.length === 1) {
-        navigate(`/meals/${food[0].idMeals}`);
-      }
     }
-
     setSearchInput('');
   };
+
+  useEffect(() => {
+    if (drinks.length === 1) {
+      navigate(`/drinks/${drinks[0].idDrink}`);
+    }
+    if (food.length === 1) {
+      navigate(`/meals/${food[0].idMeals}`);
+    }
+  }, [drinks, food, pathname, navigate]);
 
   return (
     <form>
