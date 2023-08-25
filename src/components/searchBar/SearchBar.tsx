@@ -18,7 +18,6 @@ function SearchBar() {
     e.preventDefault();
     if (pathname === '/drinks') {
       fetchDrinks(searchInput, selectedFilter);
-      console.log(drinks);
     } else {
       fetchFood(searchInput, selectedFilter);
     }
