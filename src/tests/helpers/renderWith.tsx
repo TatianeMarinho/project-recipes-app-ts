@@ -1,12 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { UseContextType } from '../../types/types';
 
 type Options = {
   initialEntries?: string[];
-  initialState?: any;
-  RecipesAppProvider?: UseContextType;
 };
 
 function withRouter(component: React.ReactElement, initialEntries: string[]) {
