@@ -27,11 +27,12 @@ function SearchBar() {
 
   useEffect(() => {
     if (drinks.length === 1) {
-      navigate(`/drinks/${drinks[0].idDrink}`);
+      return navigate(`/drinks/${drinks[0].idDrink}`);
     }
     if (food.length === 1) {
-      navigate(`/meals/${food[0].idMeals}`);
+      return navigate(`/meals/${food[0].idMeal}`);
     }
+    console.log(food);
   }, [drinks, food, pathname, navigate]);
 
   return (

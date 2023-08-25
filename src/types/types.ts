@@ -28,8 +28,8 @@ export type DrinksType = {
 };
 
 export type MealsType = {
-  idMeals: string,
-  strMeals: string,
+  idMeal: string,
+  strMeal: string,
   strMealsAlternate: string,
 };
 
