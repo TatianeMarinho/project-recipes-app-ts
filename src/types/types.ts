@@ -37,3 +37,5 @@ export const INICIAL_LOGIN = {
   email: '',
   password: '',
 };
+
+export const PAGETITLE = 'page-title';
