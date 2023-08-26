@@ -28,16 +28,22 @@ export type FetchAPIType = {
 export type DrinksType = {
   idDrink: string,
   strDrink: string,
-  strDrinkAlternate: string,
+  strDrinkThumb: string,
 };
 
 export type MealsType = {
   idMeal: string,
   strMeal: string,
-  strMealsAlternate: string,
+  strMealThumb: string,
 };
 
 export const INITIAL_LOGIN = {
   email: '',
   password: '',
+};
+
+export type RecipeCardType = {
+  index: number,
+  foodRecipe?: MealsType,
+  drinkRecipe?: DrinksType,
 };

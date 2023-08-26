@@ -6,12 +6,23 @@ function useFetch() {
   const [food, setFood] = useState<MealsType[]>([]);
   const [drinks, setDrinks] = useState<DrinksType[]>([]);
   const { setFetchedDrinks, setFetchedFood } = useContext(ContextRecipesApp);
+  const noRecipeFound = "Sorry, we haven't found any recipes for these filters";
 
-  useEffect(() => {
-    if (!drinks || !food) {
-      window.alert("Sorry, we haven't found any recipes for these filters");
+  const handleSetDrinks = (data: DrinksType[]) => {
+    if (!data) {
+      window.alert();
     }
-  }, [drinks, food]);
+    setDrinks(data);
+    setFetchedDrinks(data);
+  };
+
+  const handleSetFood = (data: MealsType[]) => {
+    if (!data) {
+      window.alert(noRecipeFound);
+    }
+    setFood(data);
+    setFetchedFood(data);
+  };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
@@ -22,26 +33,20 @@ function useFetch() {
       case 'ingredient':
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setFood(data.meals);
-            setFetchedFood(data.meals);
-          });
+          .then((data) => handleSetFood(data.meals))
+          .catch(() => window.alert(noRecipeFound));
         break;
       case 'name':
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setFood(data.meals);
-            setFetchedFood(data.meals);
-          });
+          .then((data) => handleSetFood(data.meals))
+          .catch(() => window.alert(noRecipeFound));
         break;
       case 'firstLetter':
         fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setFood(data.meals);
-            setFetchedFood(data.meals);
-          });
+          .then((data) => handleSetFood(data.meals))
+          .catch(() => window.alert(noRecipeFound));
         break;
       default:
         return [];
@@ -57,26 +62,20 @@ function useFetch() {
       case 'ingredient':
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setDrinks(data.drinks);
-            setFetchedDrinks(data.drinks);
-          });
+          .then((data) => handleSetDrinks(data.drinks))
+          .catch(() => window.alert(noRecipeFound));
         break;
       case 'name':
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setDrinks(data.drinks);
-            setFetchedDrinks(data.drinks);
-          });
+          .then((data) => handleSetDrinks(data.drinks))
+          .catch(() => window.alert(noRecipeFound));
         break;
       case 'firstLetter':
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`)
           .then((result) => result.json())
-          .then((data) => {
-            setDrinks(data.drinks);
-            setFetchedDrinks(data.drinks);
-          });
+          .then((data) => handleSetDrinks(data.drinks))
+          .catch(() => window.alert(noRecipeFound));
         break;
       default:
         return [];
