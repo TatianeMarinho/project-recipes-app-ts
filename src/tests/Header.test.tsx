@@ -4,8 +4,7 @@ import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
-
-const PAGETITLE = 'page-title';
+import { PAGETITLE } from '../types/types';
 
 describe('Verifica se o componente Header é renderizado corretamente', () => {
   test('Verifica a renderizaçao do Header no /meals', async () => {

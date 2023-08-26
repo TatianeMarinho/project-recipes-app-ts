@@ -2,11 +2,13 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
+import { PAGETITLE } from '../types/types';
 
 const emailInputTestId = 'email-input';
 const passwordInputTestId = 'password-input';
 const buttonEnterTestId = 'login-submit-btn';
 const validEmail = 'valid@email.com';
+const validPassword = '7895812';
 
 describe('Testando a página de Login', () => {
   test('Renderiza o input email', () => {
@@ -68,5 +70,19 @@ describe('Testando a página de Login', () => {
     await userEvent.type(inputEmail, validEmail);
     await userEvent.type(inputPassword, '6chpsd');
     expect(buttonEntrar).toBeDisabled();
+  });
+
+  test('Testa se após clicar no botão Enter a pagina é redirecionada para /meals', async () => {
+    renderWithRouter(<App />);
+    const inputEmail = screen.getByTestId(emailInputTestId);
+    const inputPassword = screen.getByTestId(passwordInputTestId);
+    const buttonEntrar = screen.getByTestId(buttonEnterTestId);
+
+    await userEvent.type(inputEmail, validEmail);
+    await userEvent.type(inputPassword, validPassword);
+    await userEvent.click(buttonEntrar);
+
+    const pageTitle = screen.getByTestId(PAGETITLE);
+    expect(pageTitle).toHaveTextContent('Meals');
   });
 });

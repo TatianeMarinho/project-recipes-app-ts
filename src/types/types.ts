@@ -42,8 +42,11 @@ export const INITIAL_LOGIN = {
   password: '',
 };
 
+
 export type RecipeCardType = {
   index: number,
   foodRecipe?: MealsType,
   drinkRecipe?: DrinksType,
 };
+
+export const PAGETITLE = 'page-title';
