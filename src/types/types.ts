@@ -42,7 +42,6 @@ export const INITIAL_LOGIN = {
   password: '',
 };
 
-
 export type RecipeCardType = {
   index: number,
   foodRecipe?: MealsType,
