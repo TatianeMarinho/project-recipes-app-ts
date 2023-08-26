@@ -6,11 +6,11 @@ function useFetch() {
   const [food, setFood] = useState<MealsType[]>([]);
   const [drinks, setDrinks] = useState<DrinksType[]>([]);
   const { setFetchedDrinks, setFetchedFood } = useContext(ContextRecipesApp);
-  const noRecipeFound = "Sorry, we haven't found any recipes for these filters";
+  const noRecipeFound = 'Sorry, we haven\'t found any recipes for these filters.';
 
   const handleSetDrinks = (data: DrinksType[]) => {
     if (!data) {
-      window.alert();
+      window.alert(noRecipeFound);
     }
     setDrinks(data);
     setFetchedDrinks(data);
