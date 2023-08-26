@@ -1,4 +1,4 @@
-import { DrinksType, MealsType, RecipeCardType } from '../../types/types';
+import { RecipeCardType } from '../../types/types';
 
 function RecipeCard(props: RecipeCardType) {
   const { index, foodRecipe, drinkRecipe } = props;
