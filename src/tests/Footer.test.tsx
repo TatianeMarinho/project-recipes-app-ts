@@ -4,6 +4,9 @@ import App from '../App';
 import { PAGETITLE } from '../types/types';
 import { renderWithRouter } from './helpers/renderWith';
 
+const drinks = 'drinks-bottom-btn';
+const meals = 'meals-bottom-btn';
+
 describe('Verifica se o componente Footer é renderizado corretamente', () => {
   test('Verifica a renderizaçao do Footer no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
@@ -11,10 +14,10 @@ describe('Verifica se o componente Footer é renderizado corretamente', () => {
     const pageTitle = screen.getByTestId(PAGETITLE);
     expect(pageTitle).toHaveTextContent('Meals');
 
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinksIcon = screen.getByTestId(drinks);
     expect(drinksIcon).toBeInTheDocument();
 
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
+    const mealsIcon = screen.getByTestId(meals);
     expect(mealsIcon).toBeInTheDocument();
 
     await userEvent.click(drinksIcon);
@@ -29,10 +32,10 @@ describe('Verifica se o componente Footer é renderizado corretamente', () => {
     const pageTitle = screen.getByTestId(PAGETITLE);
     expect(pageTitle).toHaveTextContent('Drinks');
 
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinksIcon = screen.getByTestId(drinks);
     expect(drinksIcon).toBeInTheDocument();
 
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
+    const mealsIcon = screen.getByTestId(meals);
     expect(mealsIcon).toBeInTheDocument();
 
     await userEvent.click(mealsIcon);
@@ -47,7 +50,7 @@ describe('Verifica se o componente Footer é renderizado corretamente', () => {
     const pageTitle = screen.getByRole('heading', { name: /done recipes/i });
     expect(pageTitle).toBeInTheDocument();
 
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinksIcon = screen.getByTestId(drinks);
     expect(drinksIcon).toBeInTheDocument();
 
     const mealsIcon = screen.getByTestId('meals-bottom-btn');
@@ -65,10 +68,10 @@ describe('Verifica se o componente Footer é renderizado corretamente', () => {
     const pageTitle = screen.getByRole('heading', { name: /favorite recipes/i });
     expect(pageTitle).toBeInTheDocument();
 
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinksIcon = screen.getByTestId(drinks);
     expect(drinksIcon).toBeInTheDocument();
 
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
+    const mealsIcon = screen.getByTestId(meals);
     expect(mealsIcon).toBeInTheDocument();
 
     await userEvent.click(drinksIcon);
@@ -83,10 +86,10 @@ describe('Verifica se o componente Footer é renderizado corretamente', () => {
     const titleProfile = screen.getByTestId(PAGETITLE);
     expect(titleProfile).toBeInTheDocument();
 
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+    const drinksIcon = screen.getByTestId(drinks);
     expect(drinksIcon).toBeInTheDocument();
 
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
+    const mealsIcon = screen.getByTestId(meals);
     expect(mealsIcon).toBeInTheDocument();
 
     await userEvent.click(drinksIcon);
