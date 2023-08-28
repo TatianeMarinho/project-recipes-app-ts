@@ -18,7 +18,6 @@ function SearchBar() {
     e.preventDefault();
     if (pathname === '/drinks') {
       fetchDrinks(searchInput, selectedFilter);
-      console.log(drinks);
     } else {
       fetchFood(searchInput, selectedFilter);
     }
@@ -26,13 +25,12 @@ function SearchBar() {
   };
 
   useEffect(() => {
-    if (drinks.length === 1) {
+    if (drinks && drinks.length === 1) {
       return navigate(`/drinks/${drinks[0].idDrink}`);
     }
-    if (food.length === 1) {
+    if (food && food.length === 1) {
       return navigate(`/meals/${food[0].idMeal}`);
     }
-    console.log(food);
   }, [drinks, food, pathname, navigate]);
 
   return (

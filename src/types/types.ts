@@ -1,6 +1,10 @@
 export type UseContextType = {
   login: InputsLoginTypes;
   setLogin: React.Dispatch<React.SetStateAction<InputsLoginTypes>>;
+  fetchedDrinks: DrinksType[];
+  setFetchedDrinks: (value: any) => void;
+  fetchedFood: MealsType[];
+  setFetchedFood: (value: any) => void;
 };
 
 export type UseProviderType = {
@@ -24,18 +28,24 @@ export type FetchAPIType = {
 export type DrinksType = {
   idDrink: string,
   strDrink: string,
-  strDrinkAlternate: string,
+  strDrinkThumb: string,
 };
 
 export type MealsType = {
   idMeal: string,
   strMeal: string,
-  strMealsAlternate: string,
+  strMealThumb: string,
 };
 
-export const INICIAL_LOGIN = {
+export const INITIAL_LOGIN = {
   email: '',
   password: '',
+};
+
+export type RecipeCardType = {
+  index: number,
+  foodRecipe?: MealsType,
+  drinkRecipe?: DrinksType,
 };
 
 export const PAGETITLE = 'page-title';
