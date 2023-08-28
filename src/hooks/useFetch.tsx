@@ -94,6 +94,18 @@ function useFetch() {
     return data.meals;
   };
 
+  const fetchRecomendatedDrinks = async () => {
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const data = await response.json();
+    return data;
+  };
+
+  const fetchRecomendatedMeals = async () => {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const data = await response.json();
+    return data;
+  };
+
   return {
     food,
     drinks,
@@ -101,6 +113,8 @@ function useFetch() {
     fetchDrinks,
     fetchDrinksDetails,
     fetchFoodDetails,
+    fetchRecomendatedDrinks,
+    fetchRecomendatedMeals,
   };
 }
 

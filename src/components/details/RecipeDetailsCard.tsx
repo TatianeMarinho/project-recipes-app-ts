@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DrinksType, MealsType, RecipeDetailCardType } from '../../types/types';
+import useFetch from '../../hooks/useFetch';
 
 function RecipeCardDetails(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe } = props;
@@ -7,6 +8,7 @@ function RecipeCardDetails(props: RecipeDetailCardType) {
     ingredients: [''],
     measures: [''],
   });
+  const { fetchRecomendatedMeals, fetchRecomendatedDrinks } = useFetch();
 
   const ingredientsAndMesures = (recipes: MealsType | DrinksType) => {
     if (recipes) {
@@ -27,8 +29,10 @@ function RecipeCardDetails(props: RecipeDetailCardType) {
   useEffect(() => {
     if (foodRecipe) {
       ingredientsAndMesures(foodRecipe);
+      fetchRecomendatedDrinks();
     } else if (drinkRecipe) {
       ingredientsAndMesures(drinkRecipe);
+      fetchRecomendatedMeals();
     }
   }, [drinkRecipe, foodRecipe]);
 
