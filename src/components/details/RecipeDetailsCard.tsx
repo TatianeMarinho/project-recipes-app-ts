@@ -8,7 +8,7 @@ function RecipeCardDetails(props: RecipeDetailCardType) {
     ingredients: [''],
     measures: [''],
   });
-  const { fetchRecomendatedMeals, fetchRecomendatedDrinks } = useFetch();
+  const { fetchRecomendadedMeals, fetchRecomendadedDrinks } = useFetch();
 
   const ingredientsAndMesures = (recipes: MealsType | DrinksType) => {
     if (recipes) {
@@ -29,12 +29,12 @@ function RecipeCardDetails(props: RecipeDetailCardType) {
   useEffect(() => {
     if (foodRecipe) {
       ingredientsAndMesures(foodRecipe);
-      fetchRecomendatedDrinks();
+      fetchRecomendadedDrinks();
     } else if (drinkRecipe) {
       ingredientsAndMesures(drinkRecipe);
-      fetchRecomendatedMeals();
+      fetchRecomendadedMeals();
     }
-  }, [drinkRecipe, foodRecipe]);
+  }, [drinkRecipe, foodRecipe, fetchRecomendadedDrinks, fetchRecomendadedMeals]);
 
   if (foodRecipe) {
     return (
