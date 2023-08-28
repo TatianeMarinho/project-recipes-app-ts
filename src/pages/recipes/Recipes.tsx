@@ -42,6 +42,18 @@ function Recipes() {
             </button>
           );
         })}
+      {pathname === '/drinks' && drinksCategories && drinksCategories
+        .map(({ strCategory: categoryName }, index) => {
+          if (index > 5) return;
+          return (
+            <button
+              key={ categoryName }
+              data-testid={ `${categoryName}-category-filter` }
+            >
+              { categoryName }
+            </button>
+          );
+        })}
       {pathname === '/meals' && fetchedFood && fetchedFood.map((food, index) => {
         if (index >= 12) return null;
         return (
