@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import RecipesAppProvider from '../../context/user-provider';
 
 type Options = {
   initialEntries?: string[];
@@ -9,7 +10,9 @@ type Options = {
 function withRouter(component: React.ReactElement, initialEntries: string[]) {
   return (
     <MemoryRouter initialEntries={ initialEntries }>
-      { component }
+      <RecipesAppProvider>
+        { component }
+      </RecipesAppProvider>
     </MemoryRouter>
   );
 }

@@ -14,6 +14,7 @@ function useFetch() {
     }
     setDrinks(data);
     setFetchedDrinks(data);
+    console.log(data);
   };
 
   const handleSetFood = (data: MealsType[]) => {
@@ -22,6 +23,7 @@ function useFetch() {
     }
     setFood(data);
     setFetchedFood(data);
+    console.log(data);
   };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
