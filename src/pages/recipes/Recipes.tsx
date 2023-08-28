@@ -1,11 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ContextRecipesApp from '../../context/user-context';
 import RecipeCard from '../../components/recipes/RecipeCard';
+import useFetch from '../../hooks/useFetch';
 
 function Recipes() {
   const { pathname } = useLocation();
   const { fetchedFood, fetchedDrinks } = useContext(ContextRecipesApp);
+  const { fetchDrinksInitial, fetchFoodInitial } = useFetch();
+
+  useEffect(() => {
+    if (pathname === '/meals') {
+      fetchFoodInitial();
+    } else {
+      fetchDrinksInitial();
+    }
+  }, []);
+
   return (
     <>
       <h1>Recipes</h1>

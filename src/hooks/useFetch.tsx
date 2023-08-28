@@ -8,13 +8,26 @@ function useFetch() {
   const { setFetchedDrinks, setFetchedFood } = useContext(ContextRecipesApp);
   const noRecipeFound = 'Sorry, we haven\'t found any recipes for these filters.';
 
+  const fetchFoodInitial = async () => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((result) => result.json())
+      .then((data) => handleSetFood(data.meals))
+      .catch(() => window.alert(noRecipeFound));
+  };
+
+  const fetchDrinksInitial = async () => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((result) => result.json())
+      .then((data) => handleSetDrinks(data.drinks))
+      .catch(() => window.alert(noRecipeFound));
+  };
+
   const handleSetDrinks = (data: DrinksType[]) => {
     if (!data) {
       window.alert(noRecipeFound);
     }
     setDrinks(data);
     setFetchedDrinks(data);
-    console.log(data);
   };
 
   const handleSetFood = (data: MealsType[]) => {
@@ -23,7 +36,6 @@ function useFetch() {
     }
     setFood(data);
     setFetchedFood(data);
-    console.log(data);
   };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
@@ -89,6 +101,8 @@ function useFetch() {
     drinks,
     fetchFood,
     fetchDrinks,
+    fetchFoodInitial,
+    fetchDrinksInitial,
   };
 }
 
