@@ -13,7 +13,7 @@ function Recipes() {
         if (index >= 12) return null;
         return (
           <RecipeCard
-            key={ index }
+            key={ food.idMeal }
             index={ index }
             foodRecipe={ food }
           />
@@ -23,7 +23,7 @@ function Recipes() {
         if (index >= 12) return null;
         return (
           <RecipeCard
-            key={ index }
+            key={ drink.idDrink }
             index={ index }
             drinkRecipe={ drink }
           />
