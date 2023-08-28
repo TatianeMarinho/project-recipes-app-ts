@@ -84,11 +84,15 @@ function useFetch() {
     }
   };
 
+  const fetchDrinksDetails = async (id: string) => {
+  };
+
   return {
     food,
     drinks,
     fetchFood,
     fetchDrinks,
+    fetchDrinksDetails,
   };
 }
 
