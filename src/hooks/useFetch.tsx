@@ -14,7 +14,6 @@ function useFetch() {
     }
     setDrinks(data);
     setFetchedDrinks(data);
-    console.log(data);
   };
 
   const handleSetFood = (data: MealsType[]) => {
@@ -23,7 +22,6 @@ function useFetch() {
     }
     setFood(data);
     setFetchedFood(data);
-    console.log(data);
   };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
@@ -93,7 +91,7 @@ function useFetch() {
   const fetchFoodDetails = async (id: string) => {
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
     const data = await response.json();
-    return data;
+    return data.meals;
   };
 
   return {
