@@ -2,24 +2,46 @@ import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ContextRecipesApp from '../../context/user-context';
 import RecipeCard from '../../components/recipes/RecipeCard';
-import useFetch from '../../hooks/useFetch';
+import useFetchRecipes from '../../hooks/useFetchRecipes';
+import useFetchCategories from '../../hooks/useFetchCategories';
+import { FoodCategory } from '../../types/types';
 
 function Recipes() {
   const { pathname } = useLocation();
   const { fetchedFood, fetchedDrinks } = useContext(ContextRecipesApp);
-  const { fetchDrinksInitial, fetchFoodInitial } = useFetch();
+  const {
+    foodCategories,
+    fetchFoodCategories,
+    drinksCategories,
+    fetchDrinksCategories,
+  } = useFetchCategories();
+  const { fetchDrinksInitial, fetchFoodInitial } = useFetchRecipes();
 
   useEffect(() => {
     if (pathname === '/meals') {
       fetchFoodInitial();
+      fetchFoodCategories();
     } else {
       fetchDrinksInitial();
+      fetchDrinksCategories();
     }
   }, []);
 
   return (
     <>
       <h1>Recipes</h1>
+      {pathname === '/meals' && foodCategories && foodCategories
+        .map(({ strCategory: categoryName }, index) => {
+          if (index > 5) return;
+          return (
+            <button
+              key={ categoryName }
+              data-testid={ `${categoryName}-category-filter` }
+            >
+              { categoryName }
+            </button>
+          );
+        })}
       {pathname === '/meals' && fetchedFood && fetchedFood.map((food, index) => {
         if (index >= 12) return null;
         return (

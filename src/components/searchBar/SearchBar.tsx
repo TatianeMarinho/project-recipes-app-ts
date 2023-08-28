@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
+import useFetchRecipes from '../../hooks/useFetchRecipes';
 import ContextRecipesApp from '../../context/user-context';
 
 function SearchBar() {
   const { fetchedDrinks, fetchedFood } = useContext(ContextRecipesApp);
   const [searchInput, setSearchInput] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
-  const { fetchFood, fetchDrinks } = useFetch();
+  const { fetchFood, fetchDrinks } = useFetchRecipes();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

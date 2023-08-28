@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { MealsType, DrinksType } from '../types/types';
 import ContextRecipesApp from '../context/user-context';
 
-function useFetch() {
+function useFetchRecipes() {
   const [food, setFood] = useState<MealsType[]>([]);
   const [drinks, setDrinks] = useState<DrinksType[]>([]);
   const { setFetchedDrinks, setFetchedFood } = useContext(ContextRecipesApp);
@@ -13,6 +13,7 @@ function useFetch() {
       .then((result) => result.json())
       .then((data) => handleSetFood(data.meals))
       .catch(() => window.alert(noRecipeFound));
+    console.log('FetchFoodInitial');
   };
 
   const fetchDrinksInitial = async () => {
@@ -20,6 +21,7 @@ function useFetch() {
       .then((result) => result.json())
       .then((data) => handleSetDrinks(data.drinks))
       .catch(() => window.alert(noRecipeFound));
+    console.log('FetchDrinksInitial');
   };
 
   const handleSetDrinks = (data: DrinksType[]) => {
@@ -39,6 +41,7 @@ function useFetch() {
   };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
+    console.log('fetchFood');
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -68,6 +71,7 @@ function useFetch() {
   };
 
   const fetchDrinks = async (searchInput: string, selectedFilter: string) => {
+    console.log('fetchDrinks');
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -106,4 +110,4 @@ function useFetch() {
   };
 }
 
-export default useFetch;
+export default useFetchRecipes;

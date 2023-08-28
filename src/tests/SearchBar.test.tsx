@@ -8,6 +8,10 @@ import nameMock from './helpers/nameMock';
 import ingredientMock from './helpers/ingredientMock';
 import ingredientDrinkMock from './helpers/ingredientDrinkMock';
 import nameDrinkMock from './helpers/nameDrinkMock';
+import initialDrinkMock from './helpers/initialDrinkMock';
+import drinkCategoriesMock from './helpers/drinkCategoriesMock';
+import initialFoodMock from './helpers/initialFoodMock';
+import foodCategoriesMock from './helpers/foodCategoriesMock';
 
 const searchInputTestID = 'search-input';
 const ingredientInputTestID = 'ingredient-search-radio';
@@ -23,6 +27,8 @@ describe('Verifica barra de busca', () => {
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -47,7 +53,7 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
     await screen.findByText(/Apple Frangipan Tart/i);
     await screen.findByText(/Apple & Blackberry Crumble/i);
     await screen.findByText(/Apam balik/i);
@@ -55,13 +61,22 @@ describe('Verifica barra de busca', () => {
   });
 
   test('Testa pesquisa de comida por nome', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (nameMock),
-    });
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce({
+        json: async () => (initialFoodMock),
+      })
+      .mockResolvedValueOnce({
+        json: async () => (foodCategoriesMock),
+      })
+      .mockResolvedValue({
+        json: async () => (nameMock),
+      });
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -83,7 +98,7 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
     await waitFor(() => expect(screen.getByText('Recipes details 52771')).toBeInTheDocument());
   });
 
@@ -95,6 +110,8 @@ describe('Verifica barra de busca', () => {
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -116,7 +133,7 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
     await screen.findByText(/Braised Beef Chilli/i);
     await screen.findByText(/Pizza Express Margherita/i);
   });
@@ -129,6 +146,8 @@ describe('Verifica barra de busca', () => {
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -150,20 +169,29 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
     ingredientDrinkMock.drinks.forEach((drinkRecipe) => {
       expect(screen.getByText(drinkRecipe.strDrink)).toBeInTheDocument();
     });
   });
   test('Testa se o usuário é direcionado para tela de detalhes da receita se'
     + 'uma única receita for encontrada.', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (nameDrinkMock),
-    });
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce({
+        json: async () => (initialDrinkMock),
+      })
+      .mockResolvedValueOnce({
+        json: async () => (drinkCategoriesMock),
+      })
+      .mockResolvedValue({
+        json: async () => (nameDrinkMock),
+      });
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -185,17 +213,26 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toBeCalledTimes(3);
     await waitFor(() => expect(screen.getByText('Recipes details 12708')).toBeInTheDocument());
   });
-  test('Testa se nada é renderizado se a API retorna null', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (null),
-    });
+  test('Testa se nada é modificado se a API retorna null', async () => {
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce({
+        json: async () => (initialDrinkMock),
+      })
+      .mockResolvedValueOnce({
+        json: async () => (drinkCategoriesMock),
+      })
+      .mockResolvedValue({
+        json: async () => (null),
+      });
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
     expect(btnSearch).toBeInTheDocument();
+
+    expect(global.fetch).toBeCalledTimes(2);
 
     await userEvent.click(btnSearch);
 
@@ -217,8 +254,15 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(searchButton);
 
-    expect(global.fetch).toBeCalledTimes(1);
-    const recipeCards = screen.queryByTestId('0-recipe-card');
-    expect(recipeCards).toBeNull();
+    expect(global.fetch).toBeCalledTimes(3);
+    initialDrinkMock.drinks.forEach((drink, index) => {
+      if (index <= 11) {
+        const recipeCard = screen.getByTestId(`${index}-recipe-card`);
+        expect(recipeCard).toHaveTextContent(drink.strDrink);
+      } else {
+        const recipeCard = screen.queryByTestId(`${index}-recipe-card`);
+        expect(recipeCard).toBeNull();
+      }
+    });
   });
 });
