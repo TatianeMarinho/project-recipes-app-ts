@@ -85,6 +85,15 @@ function useFetch() {
   };
 
   const fetchDrinksDetails = async (id: string) => {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const data = await response.json();
+    return data;
+  };
+
+  const fetchFoodDetails = async (id: string) => {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const data = await response.json();
+    return data;
   };
 
   return {
@@ -93,6 +102,7 @@ function useFetch() {
     fetchFood,
     fetchDrinks,
     fetchDrinksDetails,
+    fetchFoodDetails,
   };
 }
 
