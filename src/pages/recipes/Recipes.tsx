@@ -25,7 +25,7 @@ function Recipes() {
       fetchDrinksInitial();
       fetchDrinksCategories();
     }
-  }, []);
+  }, [pathname]);
 
   return (
     <>
@@ -35,7 +35,7 @@ function Recipes() {
           if (index > 5) return;
           return (
             <button
-              key={ categoryName }
+              key={ `${categoryName}-meals` }
               data-testid={ `${categoryName}-category-filter` }
             >
               { categoryName }
@@ -47,7 +47,7 @@ function Recipes() {
           if (index > 5) return;
           return (
             <button
-              key={ categoryName }
+              key={ `${categoryName}-drinks` }
               data-testid={ `${categoryName}-category-filter` }
             >
               { categoryName }
