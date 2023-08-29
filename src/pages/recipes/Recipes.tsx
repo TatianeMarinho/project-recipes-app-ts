@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ContextRecipesApp from '../../context/user-context';
 import RecipeCard from '../../components/recipes/RecipeCard';
@@ -8,6 +8,7 @@ import useFetchCategories from '../../hooks/useFetchCategories';
 function Recipes() {
   const { pathname } = useLocation();
   const { fetchedFood, fetchedDrinks } = useContext(ContextRecipesApp);
+  const [filterActive, setFilterActive] = useState(false);
   const {
     foodCategories,
     fetchFoodCategories,
@@ -34,8 +35,13 @@ function Recipes() {
     category: string,
   ) => {
     event.preventDefault();
+    setFilterActive(!filterActive);
     try {
-      fetchDrinksFiltered(category);
+      if (filterActive) {
+        fetchDrinksInitial();
+      } else {
+        fetchDrinksFiltered(category);
+      }
     } catch (error) {
       console.error(ERROR, error);
     }
@@ -46,8 +52,13 @@ function Recipes() {
     category: string,
   ) => {
     event.preventDefault();
+    setFilterActive(!filterActive);
     try {
-      fetchFoodFiltered(category);
+      if (filterActive) {
+        fetchFoodInitial();
+      } else {
+        fetchFoodFiltered(category);
+      }
     } catch (error) {
       console.error(ERROR, error);
     }
