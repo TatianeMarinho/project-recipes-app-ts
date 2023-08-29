@@ -32,7 +32,7 @@ function Recipes() {
       <h1>Recipes</h1>
       {pathname === '/meals' && foodCategories && foodCategories
         .map(({ strCategory: categoryName }, index) => {
-          if (index > 5) return;
+          if (index > 4) return;
           return (
             <button
               key={ categoryName }
@@ -44,7 +44,7 @@ function Recipes() {
         })}
       {pathname === '/drinks' && drinksCategories && drinksCategories
         .map(({ strCategory: categoryName }, index) => {
-          if (index > 5) return;
+          if (index > 4) return;
           return (
             <button
               key={ categoryName }
