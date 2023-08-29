@@ -56,9 +56,9 @@ function Recipes() {
   const handleClickAll = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     try {
-      if (pathname === 'meals') {
+      if (pathname === '/meals') {
         fetchFoodInitial();
-      } else if (pathname === 'drinks') {
+      } else if (pathname === '/drinks') {
         fetchDrinksInitial();
       }
     } catch (error) {
