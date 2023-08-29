@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import ContextRecipesApp from '../../context/user-context';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import useFetchRecipes from '../../hooks/useFetchRecipes';
@@ -117,21 +117,29 @@ function Recipes() {
       {pathname === '/meals' && fetchedFood && fetchedFood.map((food, index) => {
         if (index >= 12) return null;
         return (
-          <RecipeCard
+          <Link
             key={ food.idMeal }
-            index={ index }
-            foodRecipe={ food }
-          />
+            to={ `/meals/${food.idMeal}` }
+          >
+            <RecipeCard
+              index={ index }
+              foodRecipe={ food }
+            />
+          </Link>
         );
       })}
       {pathname === '/drinks' && fetchedDrinks && fetchedDrinks.map((drink, index) => {
         if (index >= 12) return null;
         return (
-          <RecipeCard
+          <Link
             key={ drink.idDrink }
-            index={ index }
-            drinkRecipe={ drink }
-          />
+            to={ `/drinks/${drink.idDrink}` }
+          >
+            <RecipeCard
+              index={ index }
+              drinkRecipe={ drink }
+            />
+          </Link>
         );
       })}
     </>
