@@ -137,6 +137,10 @@ export type RecipeDetailCardType = {
   index: number,
   foodRecipe?: MealsType,
   drinkRecipe?: DrinksType,
+  recipe: {
+    ingredients: string[],
+    measures: string[],
+  },
 };
 
 export const PAGETITLE = 'page-title';

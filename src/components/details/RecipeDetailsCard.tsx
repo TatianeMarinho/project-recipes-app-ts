@@ -1,40 +1,7 @@
-import { useEffect, useState } from 'react';
-import { DrinksType, MealsType, RecipeDetailCardType } from '../../types/types';
-import useFetch from '../../hooks/useFetch';
+import { RecipeDetailCardType } from '../../types/types';
 
 function RecipeCardDetails(props: RecipeDetailCardType) {
-  const { foodRecipe, drinkRecipe } = props;
-  const [recipe, setRecipe] = useState({
-    ingredients: [''],
-    measures: [''],
-  });
-  const { fetchRecomendadedMeals, fetchRecomendadedDrinks } = useFetch();
-
-  const ingredientsAndMesures = (recipes: MealsType | DrinksType) => {
-    if (recipes) {
-      const measure = Object.entries(recipes as MealsType)
-        .filter((entry) => entry[0]
-          .includes('strMeasure') && entry[1] !== null && entry[1] !== '')
-        .map((entry) => entry[1]);
-
-      const ingredient = Object.entries(recipes as MealsType)
-        .filter((entry) => entry[0]
-          .includes('strIngredient') && entry[1] !== null && entry[1] !== '')
-        .map((entry) => entry[1]);
-
-      setRecipe({ ingredients: ingredient, measures: measure });
-    }
-  };
-
-  useEffect(() => {
-    if (foodRecipe) {
-      ingredientsAndMesures(foodRecipe);
-      fetchRecomendadedDrinks();
-    } else if (drinkRecipe) {
-      ingredientsAndMesures(drinkRecipe);
-      fetchRecomendadedMeals();
-    }
-  }, [drinkRecipe, foodRecipe, fetchRecomendadedDrinks, fetchRecomendadedMeals]);
+  const { foodRecipe, drinkRecipe, recipe } = props;
 
   if (foodRecipe) {
     return (
