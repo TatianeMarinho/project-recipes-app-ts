@@ -3,7 +3,7 @@
   position: fixed;
 }
 
-.share-recipe-btn, .favorite-recipe-btn {
+.share-favorite-buttons {
   position: fixed;
   top: 0;
 }

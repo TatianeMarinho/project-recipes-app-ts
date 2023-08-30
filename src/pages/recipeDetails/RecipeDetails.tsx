@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
-import { DrinksType, MealsType } from '../../types/types';
+import { DrinksType, FavoriteRecipeType, MealsType } from '../../types/types';
 import CarouselCard from '../../components/carousel/Carousel';
 import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './RecipeDetails.css';
-import ContextRecipesApp from '../../context/user-context';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 function RecipesDetails() {
@@ -26,8 +27,12 @@ function RecipesDetails() {
     measures: [''],
   });
   const navigate = useNavigate();
-  const { favoriteRecipes, setFavoriteRecipes } = useContext(ContextRecipesApp);
   const localStorageFavorites = useLocalStorage('favoriteRecipes', '[]');
+  const [isFavorite, setIsFavorite] = useState<boolean>(!!JSON
+    .parse(localStorageFavorites.value)
+    .find((favoriteRecipe: FavoriteRecipeType) => favoriteRecipe.id === id));
+  const [favoriteRecipes, setFavoriteRecipes] = useState(JSON
+    .parse(localStorageFavorites.value));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +56,11 @@ function RecipesDetails() {
       }
     };
     fetchData();
-  }, [id]);
+    const isFavoriteFind = JSON
+      .parse(localStorageFavorites.value)
+      .find((favoriteRecipe: FavoriteRecipeType) => favoriteRecipe.id === id);
+    setIsFavorite(!!isFavoriteFind);
+  }, [id, localStorageFavorites.value]);
 
   const ingredientsAndMesures = (recipes: MealsType | DrinksType) => {
     if (recipes) {
@@ -98,6 +107,15 @@ function RecipesDetails() {
         nationality: '',
         image: recipeDrink?.strDrinkThumb,
       };
+      if (isFavorite) {
+        const newFavoriteRecipes = favoriteRecipes
+          .filter((favoriteRecipe: FavoriteRecipeType) => favoriteRecipe.id !== id);
+        setFavoriteRecipes(newFavoriteRecipes);
+        localStorageFavorites
+          .updateValue(JSON.stringify(newFavoriteRecipes));
+        setIsFavorite(false);
+        return;
+      }
       setFavoriteRecipes([...favoriteRecipes, favoriteDrink]);
       localStorageFavorites
         .updateValue(JSON.stringify([...favoriteRecipes, favoriteDrink]));
@@ -111,6 +129,15 @@ function RecipesDetails() {
         nationality: recipeFood?.strArea,
         image: recipeFood?.strMealThumb,
       };
+      if (isFavorite) {
+        const newFavoriteRecipes = favoriteRecipes
+          .filter((favoriteRecipe: FavoriteRecipeType) => favoriteRecipe.id !== id);
+        setFavoriteRecipes(newFavoriteRecipes);
+        localStorageFavorites
+          .updateValue(JSON.stringify(newFavoriteRecipes));
+        setIsFavorite(false);
+        return;
+      }
       setFavoriteRecipes([...favoriteRecipes, favoriteMeal]);
       localStorageFavorites
         .updateValue(JSON.stringify([...favoriteRecipes, favoriteMeal]));
@@ -119,7 +146,7 @@ function RecipesDetails() {
 
   return (
     <div>
-      <div id="share-favorite-buttons">
+      <div className="share-favorite-buttons">
         {linkCopied && (
           <p>
             Link copied!
@@ -132,11 +159,15 @@ function RecipesDetails() {
           <img src={ shareIcon } alt="Share icon" />
         </button>
         <button
-          data-testid="favorite-btn"
+          type="button"
           className="favorite-recipe-btn"
           onClick={ handleFavoriteClick }
         >
-          Favorite
+          <img
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="Favorite icon"
+          />
         </button>
       </div>
       <RecipeCardDetails
