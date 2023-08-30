@@ -16,9 +16,9 @@ export default function CarouselCard(props: CarouselType) {
   return (
     <div>
       <h4>Recommended recipes</h4>
-      {(mealsRecomendaded) && (
-        <Carousel data-bs-theme="dark">
-          {mealsRecomendaded.map((meal, index) => (
+      <Carousel data-bs-theme="dark">
+        {(mealsRecomendaded) && (
+          mealsRecomendaded.map((meal, index) => (
             <Carousel.Item
               interval={ 1500 }
               key={ meal.idMeal }
@@ -33,12 +33,10 @@ export default function CarouselCard(props: CarouselType) {
                 <p>{meal.strCategory}</p>
               </Carousel.Caption>
             </Carousel.Item>
-          ))}
-        </Carousel>
-      )}
-      {(drinksRecomendaded) && (
-        <Carousel data-bs-theme="dark">
-          {drinksRecomendaded.map((drink, index) => (
+          ))
+        )}
+        {(drinksRecomendaded) && (
+          drinksRecomendaded.map((drink, index) => (
             <Carousel.Item
               interval={ 1500 }
               key={ drink.idDrink }
@@ -53,9 +51,9 @@ export default function CarouselCard(props: CarouselType) {
                 <p>{drink.strAlcoholic}</p>
               </Carousel.Caption>
             </Carousel.Item>
-          ))}
-        </Carousel>
-      )}
+          ))
+        )}
+      </Carousel>
     </div>
   );
 }

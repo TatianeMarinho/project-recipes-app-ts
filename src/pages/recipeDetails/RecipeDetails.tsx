@@ -4,6 +4,7 @@ import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import { DrinksType, MealsType } from '../../types/types';
 import CarouselCard from '../../components/carousel/Carousel';
+import './RecipeDetails.css';
 
 function RecipesDetails() {
   const [recipeDrink, setRecipeDrink] = useState<DrinksType>();
@@ -74,6 +75,15 @@ function RecipesDetails() {
         drinksRecomendaded={ recomendadedDrinks }
         mealsRecomendaded={ recomendadedMeals }
       />
+      {(id !== undefined && pathname === `/meals/${id}`) && (
+        <button
+          data-testid="start-recipe-btn"
+          id="start-recipe-btn"
+        >
+          Start Recipe
+        </button>
+      )}
+
     </div>
   );
 }
