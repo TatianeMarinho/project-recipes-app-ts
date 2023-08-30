@@ -16,17 +16,17 @@ export default function CarouselCard(props: CarouselType) {
       <div>
         <h4>React-Bootstrap Carousel Component</h4>
         <Carousel>
-          <Carousel.Item interval={ 1500 }>
-            <div>
-              {drinksRecomendaded.map((meal) => (
+          {drinksRecomendaded.map((drink, index) => (
+            <Carousel.Item interval={ 1500 } key={ drink.idDrink }>
+              <div data-testid={ `${index}-recommendation-card` }>
                 <img
-                  key={ meal.idDrink }
-                  src={ meal.strDrinkThumb }
-                  alt={ meal.strDrink }
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  data-testid={ `${index}-recommendation-title` }
                 />
-              ))}
-            </div>
-          </Carousel.Item>
+              </div>
+            </Carousel.Item>
+          ))}
         </Carousel>
       </div>
     );
@@ -36,17 +36,17 @@ export default function CarouselCard(props: CarouselType) {
       <div>
         <h4>React-Bootstrap Carousel Component</h4>
         <Carousel>
-          <Carousel.Item interval={ 1500 }>
-            <div>
-              {mealsRecomendaded.map((meal) => (
+          {mealsRecomendaded.map((meal, index) => (
+            <Carousel.Item interval={ 1500 } key={ meal.idMeal }>
+              <div data-testid={ `${index}-recommendation-card` }>
                 <img
-                  key={ meal.idMeal }
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
+                  data-testid={ `${index}-recommendation-title` }
                 />
-              ))}
-            </div>
-          </Carousel.Item>
+              </div>
+            </Carousel.Item>
+          ))}
         </Carousel>
       </div>
     );

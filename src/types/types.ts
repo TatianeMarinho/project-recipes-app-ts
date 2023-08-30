@@ -133,6 +133,22 @@ export type RecipeCardType = {
   drinkRecipe?: DrinksType,
 };
 
+export type FoodCategory = {
+  strCategory: string;
+};
+
+export type FoodCategories = {
+  meals: FoodCategory[];
+};
+
+export type DrinkCategory = {
+  strCategory: string;
+};
+
+export type DrinkCategories = {
+  drinks: DrinkCategory[];
+};
+
 export type RecipeDetailCardType = {
   index: number,
   foodRecipe?: MealsType,

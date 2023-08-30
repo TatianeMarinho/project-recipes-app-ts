@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
+import useFetchRecipes from '../../hooks/useFetchRecipes';
+import ContextRecipesApp from '../../context/user-context';
 
 function SearchBar() {
+  const { fetchedDrinks, fetchedFood } = useContext(ContextRecipesApp);
   const [searchInput, setSearchInput] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
-  const { drinks, food, fetchFood, fetchDrinks } = useFetch();
+  const { fetchFood, fetchDrinks } = useFetchRecipes();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -25,13 +27,13 @@ function SearchBar() {
   };
 
   useEffect(() => {
-    if (drinks && drinks.length === 1) {
-      return navigate(`/drinks/${drinks[0].idDrink}`);
+    if (fetchedDrinks && fetchedDrinks.length === 1) {
+      return navigate(`/drinks/${fetchedDrinks[0].idDrink}`);
     }
-    if (food && food.length === 1) {
-      return navigate(`/meals/${food[0].idMeal}`);
+    if (fetchedFood && fetchedFood.length === 1) {
+      return navigate(`/meals/${fetchedFood[0].idMeal}`);
     }
-  }, [drinks, food, pathname, navigate]);
+  }, [fetchedDrinks, fetchedFood, pathname, navigate]);
 
   return (
     <form>

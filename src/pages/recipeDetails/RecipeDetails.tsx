@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import useFetch from '../../hooks/useFetch';
+import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import { DrinksType, MealsType } from '../../types/types';
 import CarouselCard from '../../components/carousel/Carousel';
@@ -14,7 +14,7 @@ function RecipesDetails() {
   const { fetchDrinksDetails,
     fetchFoodDetails,
     fetchRecomendadedMeals,
-    fetchRecomendadedDrinks } = useFetch();
+    fetchRecomendadedDrinks } = useFetchRecipeDetails();
   const { pathname } = useLocation();
   const [recipe, setRecipe] = useState({
     ingredients: [''],
