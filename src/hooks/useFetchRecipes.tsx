@@ -2,11 +2,27 @@ import { useContext, useState } from 'react';
 import { MealsType, DrinksType } from '../types/types';
 import ContextRecipesApp from '../context/user-context';
 
-function useFetch() {
+function useFetchRecipes() {
   const [food, setFood] = useState<MealsType[]>([]);
   const [drinks, setDrinks] = useState<DrinksType[]>([]);
   const { setFetchedDrinks, setFetchedFood } = useContext(ContextRecipesApp);
   const noRecipeFound = 'Sorry, we haven\'t found any recipes for these filters.';
+
+  const fetchFoodInitial = async () => {
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+      .then((result) => result.json())
+      .then((data) => handleSetFood(data.meals))
+      .catch(() => window.alert(noRecipeFound));
+    console.log('FetchFoodInitial');
+  };
+
+  const fetchDrinksInitial = async () => {
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+      .then((result) => result.json())
+      .then((data) => handleSetDrinks(data.drinks))
+      .catch(() => window.alert(noRecipeFound));
+    console.log('FetchDrinksInitial');
+  };
 
   const handleSetDrinks = (data: DrinksType[]) => {
     if (!data) {
@@ -14,7 +30,6 @@ function useFetch() {
     }
     setDrinks(data);
     setFetchedDrinks(data);
-    console.log(data);
   };
 
   const handleSetFood = (data: MealsType[]) => {
@@ -23,10 +38,10 @@ function useFetch() {
     }
     setFood(data);
     setFetchedFood(data);
-    console.log(data);
   };
 
   const fetchFood = async (searchInput: string, selectedFilter: string) => {
+    console.log('fetchFood');
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -56,6 +71,7 @@ function useFetch() {
   };
 
   const fetchDrinks = async (searchInput: string, selectedFilter: string) => {
+    console.log('fetchDrinks');
     if (selectedFilter === 'firstLetter' && searchInput.length > 0) {
       window.alert('Your search must have only 1 (one) character');
     }
@@ -89,7 +105,9 @@ function useFetch() {
     drinks,
     fetchFood,
     fetchDrinks,
+    fetchFoodInitial,
+    fetchDrinksInitial,
   };
 }
 
-export default useFetch;
+export default useFetchRecipes;
