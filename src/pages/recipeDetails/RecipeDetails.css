@@ -1,9 +1,9 @@
-#start-recipe-btn {
+.start-recipe-btn {
   bottom: 0;
   position: fixed;
 }
 
-#share-favorite-buttons {
-  top: 2;
+.share-recipe-btn, .favorite-recipe-btn {
   position: fixed;
+  top: 0;
 }

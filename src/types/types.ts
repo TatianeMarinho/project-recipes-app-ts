@@ -5,6 +5,8 @@ export type UseContextType = {
   setFetchedDrinks: (value: any) => void;
   fetchedFood: MealsType[];
   setFetchedFood: (value: any) => void;
+  favoriteRecipes: FavoriteRecipeType[];
+  setFavoriteRecipes: (value: any) => void;
 };
 
 export type UseProviderType = {
@@ -28,6 +30,8 @@ export type FetchAPIType = {
 export type DrinksType = {
   idDrink: string,
   strDrink: string,
+  strCategory: string,
+  strArea: string,
   strDrinkThumb: string,
   strAlcoholic?: string,
   strIngredient1?: string,
@@ -78,6 +82,7 @@ export type MealsType = {
   strMeal: string,
   strMealThumb: string,
   strCategory?: string,
+  strArea: string,
   strIngredient1?: string,
   strIngredient2?: string,
   strIngredient3?: string,
@@ -157,6 +162,16 @@ export type RecipeDetailCardType = {
     ingredients: string[],
     measures: string[],
   },
+};
+
+export type FavoriteRecipeType = {
+  id: string,
+  type: string,
+  nationality: string,
+  category: string,
+  alcoholicOrNot?: string,
+  name: string,
+  image: string,
 };
 
 export const PAGETITLE = 'page-title';

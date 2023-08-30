@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import { DrinksType, MealsType } from '../../types/types';
 import CarouselCard from '../../components/carousel/Carousel';
+import shareIcon from '../../images/shareIcon.svg';
 import './RecipeDetails.css';
+import ContextRecipesApp from '../../context/user-context';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 function RecipesDetails() {
   const [recipeDrink, setRecipeDrink] = useState<DrinksType>();
   const [recipeFood, setRecipeFood] = useState<MealsType>();
   const [recomendadedDrinks, setRecomendadedDrinks] = useState<DrinksType[]>([]);
   const [recomendadedMeals, setRecomendadedMeals] = useState<MealsType[]>([]);
+  const [linkCopied, setLinkCopied] = useState(false);
   const { id } = useParams();
   const { fetchDrinksDetails,
     fetchFoodDetails,
@@ -22,6 +26,8 @@ function RecipesDetails() {
     measures: [''],
   });
   const navigate = useNavigate();
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(ContextRecipesApp);
+  const localStorageFavorites = useLocalStorage('favoriteRecipes', '[]');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,20 +77,64 @@ function RecipesDetails() {
     }
   };
 
+  const handleShareClick = () => {
+    setLinkCopied(true);
+    if (pathname === `/drinks/${id}`) {
+      navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
+    } else if (pathname === `/meals/${id}`) {
+      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}`);
+    }
+    setTimeout(() => setLinkCopied(false), 1500);
+  };
+
+  const handleFavoriteClick = () => {
+    if (pathname === `/drinks/${id}`) {
+      const favoriteDrink = {
+        id: recipeDrink?.idDrink,
+        type: 'drink',
+        category: recipeDrink?.strCategory,
+        alcoholicOrNot: recipeDrink?.strAlcoholic,
+        name: recipeDrink?.strDrink,
+        nationality: '',
+        image: recipeDrink?.strDrinkThumb,
+      };
+      setFavoriteRecipes([...favoriteRecipes, favoriteDrink]);
+      localStorageFavorites
+        .updateValue(JSON.stringify([...favoriteRecipes, favoriteDrink]));
+    } else if (pathname === `/meals/${id}`) {
+      const favoriteMeal = {
+        id: recipeFood?.idMeal,
+        type: 'meal',
+        category: recipeFood?.strCategory,
+        alcoholicOrNot: '',
+        name: recipeFood?.strMeal,
+        nationality: recipeFood?.strArea,
+        image: recipeFood?.strMealThumb,
+      };
+      setFavoriteRecipes([...favoriteRecipes, favoriteMeal]);
+      localStorageFavorites
+        .updateValue(JSON.stringify([...favoriteRecipes, favoriteMeal]));
+    }
+  };
+
   return (
     <div>
       <div id="share-favorite-buttons">
+        {linkCopied && (
+          <p>
+            Link copied!
+          </p>)}
         <button
           data-testid="share-btn"
-          id="share-recipe-btn"
-          onClick={ handleClick }
+          className="share-recipe-btn"
+          onClick={ handleShareClick }
         >
-          Share
+          <img src={ shareIcon } alt="Share icon" />
         </button>
         <button
           data-testid="favorite-btn"
-          id="favorite-recipe-btn"
-          onClick={ handleClick }
+          className="favorite-recipe-btn"
+          onClick={ handleFavoriteClick }
         >
           Favorite
         </button>
@@ -102,7 +152,7 @@ function RecipesDetails() {
       />
       <button
         data-testid="start-recipe-btn"
-        id="start-recipe-btn"
+        className="start-recipe-btn"
         onClick={ handleClick }
       >
         Start Recipe

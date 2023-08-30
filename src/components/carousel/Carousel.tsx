@@ -10,8 +10,6 @@ type CarouselType = {
 
 export default function CarouselCard(props: CarouselType) {
   const { drinksRecomendaded, mealsRecomendaded } = props;
-  console.log(drinksRecomendaded);
-  console.log(mealsRecomendaded);
 
   return (
     <div>
