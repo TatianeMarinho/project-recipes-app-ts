@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import { DrinksType, MealsType } from '../../types/types';
@@ -21,6 +21,7 @@ function RecipesDetails() {
     ingredients: [''],
     measures: [''],
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,8 +63,32 @@ function RecipesDetails() {
     }
   };
 
+  const handleClick = () => {
+    if (pathname === `/drinks/${id}`) {
+      navigate(`/drinks/${id}/in-progress`);
+    } else if (pathname === `/meals/${id}`) {
+      navigate(`/meals/${id}/in-progress`);
+    }
+  };
+
   return (
     <div>
+      <div id="share-favorite-buttons">
+        <button
+          data-testid="share-btn"
+          id="share-recipe-btn"
+          onClick={ handleClick }
+        >
+          Share
+        </button>
+        <button
+          data-testid="favorite-btn"
+          id="favorite-recipe-btn"
+          onClick={ handleClick }
+        >
+          Favorite
+        </button>
+      </div>
       <RecipeCardDetails
         key={ id }
         index={ Number(id) }
@@ -75,14 +100,13 @@ function RecipesDetails() {
         drinksRecomendaded={ recomendadedDrinks }
         mealsRecomendaded={ recomendadedMeals }
       />
-      {(id !== undefined && pathname === `/meals/${id}`) && (
-        <button
-          data-testid="start-recipe-btn"
-          id="start-recipe-btn"
-        >
-          Start Recipe
-        </button>
-      )}
+      <button
+        data-testid="start-recipe-btn"
+        id="start-recipe-btn"
+        onClick={ handleClick }
+      >
+        Start Recipe
+      </button>
 
     </div>
   );
