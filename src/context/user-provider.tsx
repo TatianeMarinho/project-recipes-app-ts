@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ContextRecipesApp from './user-context';
 import {
+  FavoriteRecipeType,
   INITIAL_LOGIN,
   InputsLoginTypes,
   UseProviderType,
@@ -10,6 +11,7 @@ function RecipesAppProvider({ children }: UseProviderType) {
   const [login, setLogin] = useState<InputsLoginTypes>(INITIAL_LOGIN);
   const [fetchedDrinks, setFetchedDrinks] = useState([]);
   const [fetchedFood, setFetchedFood] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState<FavoriteRecipeType[]>([]);
   const contextReturn = {
     login,
     setLogin,
@@ -17,6 +19,8 @@ function RecipesAppProvider({ children }: UseProviderType) {
     setFetchedDrinks,
     fetchedFood,
     setFetchedFood,
+    favoriteRecipes,
+    setFavoriteRecipes,
   };
 
   return (
