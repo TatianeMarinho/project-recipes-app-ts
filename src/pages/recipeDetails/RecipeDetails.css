@@ -1,0 +1,9 @@
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+}
+
+.share-favorite-buttons {
+  position: fixed;
+  top: 0;
+}
