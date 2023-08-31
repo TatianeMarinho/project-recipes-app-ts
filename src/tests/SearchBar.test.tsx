@@ -99,7 +99,7 @@ describe('Verifica barra de busca', () => {
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 52771')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Spicy Arrabiata Penne')).toBeInTheDocument());
   });
 
   test('Testa pesquisa de comida por ingrediente', async () => {
@@ -207,14 +207,14 @@ describe('Verifica barra de busca', () => {
     expect(firstLetterInput).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
 
-    await userEvent.click(ingredientInput);
+    await userEvent.click(nameInput);
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 12708')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Banana Cantaloupe Smoothie')).toBeInTheDocument());
   });
   test('Testa se nada é modificado se a API retorna null', async () => {
     global.fetch = vi.fn()
