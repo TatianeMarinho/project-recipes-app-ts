@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
@@ -9,24 +9,28 @@ import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import './RecipeDetails.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import ContextRecipesApp from '../../context/user-context';
 
 function RecipesDetails() {
-  const [recipeDrink, setRecipeDrink] = useState<DrinksType>();
-  const [recipeFood, setRecipeFood] = useState<MealsType>();
   const [recomendadedDrinks, setRecomendadedDrinks] = useState<DrinksType[]>([]);
   const [recomendadedMeals, setRecomendadedMeals] = useState<MealsType[]>([]);
-  const [linkCopied, setLinkCopied] = useState(false);
   const { id } = useParams();
   const { fetchDrinksDetails,
     fetchFoodDetails,
     fetchRecomendadedMeals,
     fetchRecomendadedDrinks } = useFetchRecipeDetails();
   const { pathname } = useLocation();
-  const [recipe, setRecipe] = useState({
-    ingredients: [''],
-    measures: [''],
-  });
   const navigate = useNavigate();
+  const {
+    setRecipeDrink,
+    recipeDrink,
+    setRecipeFood,
+    recipeFood,
+    recipe,
+    setRecipe,
+    linkCopied,
+    handleShareClick,
+  } = useContext(ContextRecipesApp);
   const localStorageFavorites = useLocalStorage('favoriteRecipes', '[]');
   const [isFavorite, setIsFavorite] = useState<boolean>(!!JSON
     .parse(localStorageFavorites.value)
@@ -84,16 +88,6 @@ function RecipesDetails() {
     } else if (pathname === `/meals/${id}`) {
       navigate(`/meals/${id}/in-progress`);
     }
-  };
-
-  const handleShareClick = () => {
-    setLinkCopied(true);
-    if (pathname === `/drinks/${id}`) {
-      navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
-    } else if (pathname === `/meals/${id}`) {
-      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}`);
-    }
-    setTimeout(() => setLinkCopied(false), 1500);
   };
 
   const handleFavoriteClick = () => {
@@ -154,7 +148,7 @@ function RecipesDetails() {
         <button
           data-testid="share-btn"
           className="share-recipe-btn"
-          onClick={ handleShareClick }
+          onClick={ () => handleShareClick(pathname, id) }
         >
           <img src={ shareIcon } alt="Share icon" />
         </button>
