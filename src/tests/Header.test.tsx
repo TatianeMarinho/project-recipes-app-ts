@@ -5,8 +5,15 @@ import App from '../App';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import { PAGETITLE } from '../types/types';
+import fetchMock from './helpers/fetchMock';
+import { vi } from 'vitest';
 
 describe('Verifica se o componente Header é renderizado corretamente', () => {
+
+  beforeEach(() => {
+    global.fetch = vi.fn(fetchMock)
+  })
+
   test('Verifica a renderizaçao do Header no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 

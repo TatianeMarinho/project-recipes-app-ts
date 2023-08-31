@@ -18,9 +18,6 @@
 // })
 
 
-
-// ----------------------------------
-import Recipes from '../pages/recipes/Recipes';
 import { vi } from 'vitest';
 import initialFoodMock from './helpers/initialFoodMock';
 import initialDrinkMock from './helpers/initialDrinkMock';
@@ -28,7 +25,6 @@ import foodCategoriesMock from './helpers/foodCategoriesMock';
 import drinkCategoriesMock from './helpers/drinkCategoriesMock';
 import { renderWithRouter } from './helpers/renderWith';
 import { screen } from '@testing-library/dom';
-import nameMock from './helpers/nameMock';
 import App from '../App';
 
 
@@ -39,18 +35,15 @@ describe('Recipes component behaves as expected', async () => {
       ok: true,
       json: () => {
         if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'){
-          console.log('food');    
           return Promise.resolve(foodCategoriesMock);
         }
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'){
-          console.log('drink categories mock');
           return Promise.resolve(drinkCategoriesMock);
         }
         if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s='){
-          console.log('initial food mock');
-          return Promise.resolve(initialFoodMock);}
+          return Promise.resolve(initialFoodMock);
+        }
         if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='){
-          console.log('initial drink mock');
           return Promise.resolve(initialDrinkMock);
         }
       },
