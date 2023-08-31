@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
@@ -9,18 +9,19 @@ import {
 import CarouselCard from '../../components/carousel/Carousel';
 import './RecipeDetails.css';
 import ButtonsCard from '../../components/buttonsCard/buttonsCard';
+import ContextRecipesApp from '../../context/user-context';
 
 function RecipesDetails() {
   const [recomendadedDrinks, setRecomendadedDrinks] = useState<DrinksType[]>([]);
   const [recomendadedMeals, setRecomendadedMeals] = useState<MealsType[]>([]);
-  const [recipeDrink, setRecipeDrink] = useState<DrinksType>();
-  const [recipeFood, setRecipeFood] = useState<MealsType>();
-  const [recipe, setRecipe] = useState(INITIAL_RECIPE_STATE);
   const { id } = useParams();
   const { fetchDrinksDetails,
     fetchFoodDetails,
     fetchRecomendadedMeals,
     fetchRecomendadedDrinks } = useFetchRecipeDetails();
+  const {
+    recipeFood, setRecipeFood, recipeDrink, setRecipeDrink, recipe, setRecipe,
+  } = useContext(ContextRecipesApp);
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

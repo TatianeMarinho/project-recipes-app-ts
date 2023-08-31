@@ -7,6 +7,13 @@ export type UseContextType = {
   setFetchedFood: (value: any) => void;
   favoriteRecipes: FavoriteRecipeType[];
   setFavoriteRecipes: (value: any) => void;
+  recipeDrink: DrinksType | undefined;
+  setRecipeDrink: React.Dispatch<React.SetStateAction<DrinksType | undefined>>
+  recipeFood: MealsType | undefined;
+  setRecipeFood: React.Dispatch<React.SetStateAction<MealsType | undefined>>
+  recipe: { ingredients: string[];measures: string[]; };
+  setRecipe: React.Dispatch<React.SetStateAction<{ ingredients: string[];
+    measures: string[]; }>>
 };
 
 export type UseProviderType = {
