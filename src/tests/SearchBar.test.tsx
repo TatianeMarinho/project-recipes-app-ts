@@ -17,6 +17,7 @@ const searchInputTestID = 'search-input';
 const ingredientInputTestID = 'ingredient-search-radio';
 const nameInputTestID = 'name-search-radio';
 const firstLetterInputTestID = 'first-letter-search-radio';
+const banana = 'Banana Cantaloupe Smoothie';
 
 describe('Verifica barra de busca', () => {
   test('Verifica pesquisa de comida por primeira letra', async () => {
@@ -209,12 +210,12 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(nameInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
+    await userEvent.type(searchInput, banana);
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Banana Cantaloupe Smoothie')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(banana)).toBeInTheDocument());
   });
   test('Testa se nada é modificado se a API retorna null', async () => {
     global.fetch = vi.fn()
@@ -250,7 +251,7 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(ingredientInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
+    await userEvent.type(searchInput, banana);
 
     await userEvent.click(searchButton);
 
