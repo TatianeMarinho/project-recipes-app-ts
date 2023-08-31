@@ -3,8 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import {
-  DrinksType,
-  INITIAL_RECIPE_STATE, MealsType,
+  DrinksType, MealsType,
 } from '../../types/types';
 import CarouselCard from '../../components/carousel/Carousel';
 import './RecipeDetails.css';
@@ -20,7 +19,9 @@ function RecipesDetails() {
     fetchRecomendadedMeals,
     fetchRecomendadedDrinks } = useFetchRecipeDetails();
   const {
-    recipeFood, setRecipeFood, recipeDrink, setRecipeDrink, recipe, setRecipe,
+    recipeFood, setRecipeFood,
+    recipeDrink, setRecipeDrink,
+    recipe, setRecipe, setStartRecipe,
   } = useContext(ContextRecipesApp);
   const { pathname } = useLocation();
   const navigate = useNavigate();

@@ -84,6 +84,14 @@ export type DrinksType = {
   strInstructions?: string,
 };
 
+export const DRINK_INICIAL_STATE = {
+  idDrink: '',
+  strDrink: '',
+  strCategory: '',
+  strArea: '',
+  strDrinkThumb: '',
+};
+
 export type MealsType = {
   idMeal: string,
   strMeal: string,
@@ -132,6 +140,13 @@ export type MealsType = {
   strMeasure19?: string;
   strMeasure20?: string;
   strYoutube?: string
+};
+
+export const MEALS_INICIAL_STATE = {
+  idMeal: '',
+  strMeal: '',
+  strMealThumb: '',
+  strArea: '',
 };
 
 export const INITIAL_LOGIN = {

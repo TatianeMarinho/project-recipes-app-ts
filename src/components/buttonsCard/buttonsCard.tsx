@@ -21,6 +21,10 @@ function ButtonsCard({ pathname, id, recipeDrink, recipeFood }: ButtonsCardType)
       navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
     } else if (pathname === `/meals/${id}`) {
       navigator.clipboard.writeText(`http://localhost:3000/meals/${id}`);
+    } else if (pathname === `/drinks/${id}/in-progress`) {
+      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}/in-progress`);
+    } else if (pathname === `/meals/${id}/in-progress`) {
+      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}/in-progress`);
     }
     setTimeout(() => setLinkCopied(false), 1500);
   };
@@ -30,10 +34,10 @@ function ButtonsCard({ pathname, id, recipeDrink, recipeFood }: ButtonsCardType)
       .parse(localStorageFavorites.value)
       .find((favoriteRecipe: FavoriteRecipeType) => favoriteRecipe.id === id);
     setIsFavorite(!!isFavoriteFind);
-  }, [id, localStorageFavorites.value]);
+  }, [id, localStorageFavorites.value, favoriteRecipes]);
 
   const handleFavoriteClick = () => {
-    if (pathname === `/drinks/${id}`) {
+    if (pathname === `/drinks/${id}` || pathname === `/drinks/${id}/in-progress`) {
       const favoriteDrink = {
         id: recipeDrink?.idDrink,
         type: 'drink',
@@ -55,7 +59,7 @@ function ButtonsCard({ pathname, id, recipeDrink, recipeFood }: ButtonsCardType)
       setFavoriteRecipes([...favoriteRecipes, favoriteDrink]);
       localStorageFavorites
         .updateValue(JSON.stringify([...favoriteRecipes, favoriteDrink]));
-    } else if (pathname === `/meals/${id}`) {
+    } else if (pathname === `/meals/${id}` || pathname === `/meals/${id}/in-progress`) {
       const favoriteMeal = {
         id: recipeFood?.idMeal,
         type: 'meal',
