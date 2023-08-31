@@ -7,21 +7,6 @@ export type UseContextType = {
   setFetchedFood: (value: any) => void;
   favoriteRecipes: FavoriteRecipeType[];
   setFavoriteRecipes: (value: any) => void;
-  recipeDrink: DrinksType | undefined;
-  setRecipeDrink: React.Dispatch<React.SetStateAction<DrinksType | undefined>>;
-  recipeFood: MealsType | undefined;
-  setRecipeFood: React.Dispatch<React.SetStateAction<MealsType | undefined>>;
-  recipe: {
-    ingredients: string[];
-    measures: string[];
-  };
-  setRecipe: React.Dispatch<React.SetStateAction<{
-    ingredients: string[];
-    measures: string[];
-  }>>;
-  linkCopied: boolean;
-  setLinkCopied: React.Dispatch<React.SetStateAction<boolean>>;
-  handleShareClick: (pathname: string, id: string | undefined) => void
 };
 
 export type UseProviderType = {
@@ -194,4 +179,11 @@ export const PAGETITLE = 'page-title';
 export const INITIAL_RECIPE_STATE = {
   ingredients: [''],
   measures: [''],
+};
+
+export type ButtonsCardType = {
+  pathname: string;
+  id:string | undefined;
+  recipeDrink: DrinksType | undefined;
+  recipeFood: MealsType | undefined;
 };

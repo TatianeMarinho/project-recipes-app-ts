@@ -1,23 +1,27 @@
-import { useParams } from 'react-router-dom';
-import { useContext } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
-import ContextRecipesApp from '../../context/user-context';
+import ButtonsCard from '../../components/buttonsCard/buttonsCard';
 
 function RecipeInProgress() {
   const { id } = useParams();
-  const {
-    recipeDrink,
-    recipeFood,
-    recipe,
-  } = useContext(ContextRecipesApp);
+  const { pathname } = useLocation();
+
   return (
-    <RecipeCardDetails
-      key={ id }
-      index={ Number(id) }
-      foodRecipe={ recipeFood }
-      drinkRecipe={ recipeDrink }
-      recipe={ recipe }
-    />
+    <>
+      <ButtonsCard
+        pathname={ pathname }
+        id={ id }
+        recipeDrink={ recipeDrink }
+        recipeFood={ recipeFood }
+      />
+      <RecipeCardDetails
+        key={ id }
+        index={ Number(id) }
+        foodRecipe={ recipeFood }
+        drinkRecipe={ recipeDrink }
+        recipe={ recipe }
+      />
+    </>
   );
 }
 export default RecipeInProgress;
