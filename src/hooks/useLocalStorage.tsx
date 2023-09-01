@@ -10,6 +10,7 @@ function useLocalStorage(key: string, initialValue: string): UseLocalStorageType
     localStorage.setItem(key, newValue);
   };
   return {
+    JSON,
     value,
     updateValue,
   };

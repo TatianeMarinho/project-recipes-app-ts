@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IsCheckedState, RecipeDetailCardType } from '../../types/types';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 function RecipeCardInProgress(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe, recipe } = props;
   const [isChecked, setIsChecked] = useState<IsCheckedState>({});
 
-  const handleChecked = (index: number) => {
+  const localStorageProgressRecipes = useLocalStorage('inProgressRecipes', '{}');
+  console.log(isChecked);
+  useEffect(() => {
+    localStorageProgressRecipes
+      .JSON.stringify(isChecked);
+  }, [isChecked, localStorageProgressRecipes]);
+
+  const handleChecked = (id: string, index: number) => {
     // recebe o estado anterior(prevState) como parametro
     setIsChecked((prevState) => ({
     // clona o estado anterior
       ...prevState,
-      // atualiza uma propriedade do objeto. no indice tal sera trocado para false ou true
-      [index]: !prevState[index],
+      [id]: {
+        ...prevState[id],
+        // atualiza uma propriedade do objeto. no indice tal sera trocado para false ou true
+        [index]: !prevState[id]?.[index] || false,
+      },
     }));
   };
 
@@ -35,7 +46,7 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
                 style={
-                  isChecked[index]
+                  isChecked[foodRecipe.idMeal]?.[index]
                     ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
                     : {}
                 }
@@ -44,8 +55,8 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
                   type="checkbox"
                   name="ingredient"
                   className="checkbox"
-                  checked={ isChecked[index] }
-                  onChange={ () => handleChecked(index) }
+                  checked={ isChecked[foodRecipe.idMeal]?.[index] }
+                  onChange={ () => handleChecked(foodRecipe.idMeal, index) }
                 />
                 { `${ingredient} - ${recipe.measures?.[index]}` }
               </label>
@@ -73,7 +84,7 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
               key={ ingredient }
               data-testid={ `${index}-ingredient-step` }
               style={
-                isChecked[index]
+                isChecked[drinkRecipe.idDrink]?.[index]
                   ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
                   : {}
               }
@@ -82,8 +93,8 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
                 type="checkbox"
                 name="ingredient"
                 id={ ingredient }
-                checked={ isChecked[index] }
-                onChange={ () => handleChecked(index) }
+                checked={ isChecked[drinkRecipe.idDrink]?.[index] }
+                onChange={ () => handleChecked(drinkRecipe.idDrink, index) }
               />
               { `${ingredient} - ${recipe.measures?.[index]}` }
             </label>

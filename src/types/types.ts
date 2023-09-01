@@ -26,6 +26,7 @@ export type InputsLoginTypes = {
 };
 
 export type UseLocalStorageType = {
+  JSON: any;
   value: string;
   updateValue: (newValue: string) => void;
 };
@@ -216,5 +217,5 @@ export type ButtonsCardType = {
 };
 
 export type IsCheckedState = {
-  [index:number]: boolean
+  [id: string]: { [index:number]: boolean }
 };
