@@ -6,12 +6,12 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe, recipe } = props;
   const [isChecked, setIsChecked] = useState<IsCheckedState>({});
 
-  const localStorageProgressRecipes = useLocalStorage('inProgressRecipes', '{}');
+  const { updateValue } = useLocalStorage('inProgressRecipes', '{}');
   console.log(isChecked);
+
   useEffect(() => {
-    localStorageProgressRecipes
-      .JSON.stringify(isChecked);
-  }, [isChecked, localStorageProgressRecipes]);
+    updateValue(JSON.stringify(isChecked));
+  }, [isChecked]);
 
   const handleChecked = (id: string, index: number) => {
     // recebe o estado anterior(prevState) como parametro

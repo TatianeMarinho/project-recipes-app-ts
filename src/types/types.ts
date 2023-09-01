@@ -26,7 +26,6 @@ export type InputsLoginTypes = {
 };
 
 export type UseLocalStorageType = {
-  JSON: any;
   value: string;
   updateValue: (newValue: string) => void;
 };
