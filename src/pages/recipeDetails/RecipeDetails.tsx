@@ -21,7 +21,7 @@ function RecipesDetails() {
   const {
     recipeFood, setRecipeFood,
     recipeDrink, setRecipeDrink,
-    recipe, setRecipe, setStartRecipe,
+    recipe, setRecipe,
   } = useContext(ContextRecipesApp);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ function RecipesDetails() {
       setRecipe({ ingredients: ingredient, measures: measure });
     }
   };
-
+  console.log(recipe);
   const handleClick = () => {
     if (pathname === `/drinks/${id}`) {
       navigate(`/drinks/${id}/in-progress`);

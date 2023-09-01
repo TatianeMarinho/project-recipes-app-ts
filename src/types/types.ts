@@ -203,6 +203,11 @@ export const INITIAL_RECIPE_STATE = {
   measures: [''],
 };
 
+export type RecipeState = {
+  ingredients: string[];
+  measures: string[];
+};
+
 export type ButtonsCardType = {
   pathname: string;
   id:string | undefined;

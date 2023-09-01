@@ -1,10 +1,11 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-import RecipeCardDetails from '../../components/details/RecipeDetailsCard';
 import ButtonsCard from '../../components/buttonsCard/buttonsCard';
 import ContextRecipesApp from '../../context/user-context';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
 import { DrinksType, MealsType } from '../../types/types';
+import RecipeCardInProgress from
+  '../../components/RecipeInProgressCard/RecipeInProgressCard';
 
 function RecipeInProgress() {
   const { id } = useParams();
@@ -55,7 +56,7 @@ function RecipeInProgress() {
         recipeDrink={ recipeDrink }
         recipeFood={ recipeFood }
       />
-      <RecipeCardDetails
+      <RecipeCardInProgress
         key={ id }
         index={ Number(id) }
         foodRecipe={ recipeFood }

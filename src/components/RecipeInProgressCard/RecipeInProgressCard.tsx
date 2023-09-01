@@ -1,7 +1,6 @@
 import { RecipeDetailCardType } from '../../types/types';
-import IngredientsList from '../RecipeInProgressCard/RecipeInProgressCard';
 
-function RecipeCardDetails(props: RecipeDetailCardType, pathname: string) {
+function RecipeCardInProgress(props: RecipeDetailCardType, pathname: string) {
   const { foodRecipe, drinkRecipe, recipe } = props;
 
   if (foodRecipe) {
@@ -17,16 +16,19 @@ function RecipeCardDetails(props: RecipeDetailCardType, pathname: string) {
           {`Category: ${foodRecipe.strCategory}`}
         </h4>
         <h5>Ingredients:</h5>
-        <ul>
-          {recipe.ingredients?.map((ingredient, index) => (
-            <li
-              key={ ingredient }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { `${ingredient} - ${recipe.measures?.[index]}` }
-            </li>
-          ))}
-        </ul>
+        <div>
+          {
+            recipe.ingredients?.map((ingredient, index) => (
+              <label
+                key={ ingredient }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                <input type="checkbox" />
+                { `${ingredient} - ${recipe.measures?.[index]}` }
+              </label>
+            ))
+          }
+        </div>
         <p data-testid="instructions">{foodRecipe.strInstructions}</p>
         <div>
           <iframe
@@ -51,22 +53,21 @@ function RecipeCardDetails(props: RecipeDetailCardType, pathname: string) {
         <h1 data-testid="recipe-title">{drinkRecipe.strDrink}</h1>
         <h4 data-testid="recipe-category">{drinkRecipe.strAlcoholic}</h4>
         <h5>Ingredients:</h5>
-        <ul>
-          {
+        {
           recipe.ingredients?.map((ingredient, index) => (
-            <li
+            <label
               key={ ingredient }
-              data-testid={ `${index}-ingredient-name-and-measure` }
+              data-testid={ `${index}-ingredient-step` }
             >
+              <input type="checkbox" />
               { `${ingredient} - ${recipe.measures?.[index]}` }
-            </li>
+            </label>
           ))
-          }
-        </ul>
+        }
         <p data-testid="instructions">{drinkRecipe.strInstructions}</p>
       </div>
     );
   }
 }
 
-export default RecipeCardDetails;
+export default RecipeCardInProgress;
