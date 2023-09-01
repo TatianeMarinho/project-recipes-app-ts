@@ -214,3 +214,7 @@ export type ButtonsCardType = {
   recipeDrink: DrinksType | undefined;
   recipeFood: MealsType | undefined;
 };
+
+export type IsCheckedState = {
+  [index:number]: boolean
+};

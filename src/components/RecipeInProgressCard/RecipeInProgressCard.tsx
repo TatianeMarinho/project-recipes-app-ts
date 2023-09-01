@@ -1,7 +1,20 @@
-import { RecipeDetailCardType } from '../../types/types';
+import { useState } from 'react';
+import { IsCheckedState, RecipeDetailCardType } from '../../types/types';
+import './RecipeInProgress.css';
 
-function RecipeCardInProgress(props: RecipeDetailCardType, pathname: string) {
+function RecipeCardInProgress(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe, recipe } = props;
+  const [isChecked, setIsChecked] = useState<IsCheckedState>({});
+
+  const handleChecked = (index: number) => {
+    // recebe o estado anterior(prevState) como parametro
+    setIsChecked((prevState) => ({
+    // clona o estado anterior
+      ...prevState,
+      // atualiza uma propriedade do objeto. no indice tal sera trocado para false ou true
+      [index]: !prevState[index],
+    }));
+  };
 
   if (foodRecipe) {
     return (
@@ -23,22 +36,19 @@ function RecipeCardInProgress(props: RecipeDetailCardType, pathname: string) {
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
               >
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  name="ingredient"
+                  className="checkbox"
+                  checked={ isChecked[index] }
+                  onChange={ () => handleChecked(index) }
+                />
                 { `${ingredient} - ${recipe.measures?.[index]}` }
               </label>
             ))
           }
         </div>
         <p data-testid="instructions">{foodRecipe.strInstructions}</p>
-        <div>
-          <iframe
-            src={ foodRecipe.strYoutube }
-            title="Vídeo da receita"
-            width="560"
-            height="315"
-            data-testid="video"
-          />
-        </div>
       </div>
     );
   }
@@ -59,7 +69,13 @@ function RecipeCardInProgress(props: RecipeDetailCardType, pathname: string) {
               key={ ingredient }
               data-testid={ `${index}-ingredient-step` }
             >
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                name="ingredient"
+                id={ ingredient }
+                checked={ isChecked[index] }
+                onChange={ () => handleChecked(index) }
+              />
               { `${ingredient} - ${recipe.measures?.[index]}` }
             </label>
           ))
