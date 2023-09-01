@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { IsCheckedState, RecipeDetailCardType } from '../../types/types';
-import './RecipeInProgress.css';
 
 function RecipeCardInProgress(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe, recipe } = props;
@@ -35,6 +34,11 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
               <label
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
+                style={
+                  isChecked[index]
+                    ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
+                    : {}
+                }
               >
                 <input
                   type="checkbox"
@@ -68,6 +72,11 @@ function RecipeCardInProgress(props: RecipeDetailCardType) {
             <label
               key={ ingredient }
               data-testid={ `${index}-ingredient-step` }
+              style={
+                isChecked[index]
+                  ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
+                  : {}
+              }
             >
               <input
                 type="checkbox"
