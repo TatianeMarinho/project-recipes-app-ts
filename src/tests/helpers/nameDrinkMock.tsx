@@ -1,9 +1,9 @@
 const nameDrinkMock = {
   drinks: [
     {
-      strDrink: 'Banana Cantaloupe Smoothie',
-      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/uqxqsy1468876703.jpg',
-      idDrink: '12708',
+      idDrink: '17180',
+      strDrink: 'Aviation',
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/trbplb1606855233.jpg',
     },
   ],
 };

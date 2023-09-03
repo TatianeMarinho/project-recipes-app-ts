@@ -20,10 +20,13 @@ const nameInputTestID = 'name-search-radio';
 const firstLetterInputTestID = 'first-letter-search-radio';
 
 describe('Verifica barra de busca', () => {
-
   beforeEach(() => {
-    global.fetch = vi.fn(fetchMock)
-  })
+    global.fetch = vi.fn().mockImplementation(fetchMock);
+    window.alert = vi.fn(() => {});
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
   test('Verifica pesquisa de comida por primeira letra', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
@@ -92,7 +95,7 @@ describe('Verifica barra de busca', () => {
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 52771')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Spicy Arrabiata Penne')).toBeInTheDocument());
   });
 
   test('Testa pesquisa de comida por ingrediente', async () => {
@@ -184,16 +187,17 @@ describe('Verifica barra de busca', () => {
     expect(firstLetterInput).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
 
-    await userEvent.click(ingredientInput);
+    await userEvent.click(nameInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
+    await userEvent.type(searchInput, 'Aviation');
+    screen.debug();
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 12708')).toBeInTheDocument());
+    await screen.findByText('Aviation');
   });
-  test('Testa se nada é modificado se a API retorna null', async () => {
+  test('Testa se alerta é chamado se a API retorna null', async () => {
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -222,14 +226,6 @@ describe('Verifica barra de busca', () => {
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    initialDrinkMock.drinks.forEach((drink, index) => {
-      if (index <= 11) {
-        const recipeCard = screen.getByTestId(`${index}-recipe-card`);
-        expect(recipeCard).toHaveTextContent(drink.strDrink);
-      } else {
-        const recipeCard = screen.queryByTestId(`${index}-recipe-card`);
-        expect(recipeCard).toBeNull();
-      }
-    });
+    expect(window.alert).toHaveBeenCalled();
   });
 });
