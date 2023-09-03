@@ -1,12 +1,30 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ContextRecipesApp from '../../context/user-context';
+import { InputsLoginTypes } from '../../types/types';
 
 function Profile() {
   const navigate = useNavigate();
-  const storedEmail = localStorage.getItem('user') as string;
-  const parsedEmail = JSON.parse(storedEmail);
+  const { setLogin } = useContext(ContextRecipesApp);
+
+  const clearLogin = {
+    email: '',
+  };
+
+  const getEmail = () => {
+    const storedEmail = localStorage.getItem('user') as string;
+    if (storedEmail) {
+      const parsedEmail = JSON.parse(storedEmail) as InputsLoginTypes;
+      const savedEmail = parsedEmail.email as string;
+      return savedEmail;
+    }
+  };
+
+  const email = getEmail();
 
   const handleLogout = () => {
     localStorage.clear();
+    setLogin(clearLogin);
     navigate('/');
   };
 
@@ -16,7 +34,7 @@ function Profile() {
       <h2
         data-testid="profile-email"
       >
-        { parsedEmail.email }
+        { email }
       </h2>
       <button
         data-testid="profile-done-btn"
