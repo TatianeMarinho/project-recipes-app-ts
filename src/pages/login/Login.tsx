@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { INITIAL_LOGIN } from '../../types/types';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import ContextRecipesApp from '../../context/user-context';
 
 function Login() {
   const [inputs, setInputs] = useState(INITIAL_LOGIN);
   const { email, password } = inputs;
   const navigate = useNavigate();
   const { updateValue } = useLocalStorage('user', JSON.stringify(inputs));
+  const { setLogin } = useContext(ContextRecipesApp);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -16,9 +18,10 @@ function Login() {
       ...inputs,
       [name]: value,
     });
+    setLogin({ email });
   };
 
-  const isvalidButton = () => {
+  const isValidButton = () => {
     const emailRegex = /^[a-zA-Z0-9.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     const emailIsValid = emailRegex.test(email);
     const paswordRegex = /^.{7,}$/;
@@ -57,7 +60,7 @@ function Login() {
         <button
           type="button"
           id="login-submit-btn"
-          disabled={ !isvalidButton() }
+          disabled={ !isValidButton() }
           data-testid="login-submit-btn"
           onClick={ handleSubmit }
         >

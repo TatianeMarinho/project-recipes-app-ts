@@ -22,7 +22,6 @@ export type UseProviderType = {
 
 export type InputsLoginTypes = {
   email: string;
-  password: string;
 };
 
 export type UseLocalStorageType = {
