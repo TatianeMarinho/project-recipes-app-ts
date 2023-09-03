@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ButtonsCard from '../../components/buttonsCard/buttonsCard';
 import ContextRecipesApp from '../../context/user-context';
 import useFetchRecipeDetails from '../../hooks/useFetchRecipeDetails';
@@ -15,6 +15,11 @@ function RecipeInProgress() {
   const {
     recipeFood, setRecipeFood, recipeDrink, setRecipeDrink, recipe, setRecipe,
   } = useContext(ContextRecipesApp);
+  const [recipeIsFinished, setRecipeIsFinished] = useState(false);
+
+  useEffect(() => {
+    console.log(recipeIsFinished);
+  }, [recipeIsFinished]);
 
   const ingredientsAndMesures = (recipes: MealsType | DrinksType) => {
     if (recipes) {
@@ -62,8 +67,10 @@ function RecipeInProgress() {
         foodRecipe={ recipeFood }
         drinkRecipe={ recipeDrink }
         recipe={ recipe }
+        setRecipeIsFinished={ setRecipeIsFinished }
       />
       <button
+        disabled={ !recipeIsFinished }
         data-testid="finish-recipe-btn"
       >
         Finish Recipe

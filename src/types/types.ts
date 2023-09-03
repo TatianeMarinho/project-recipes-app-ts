@@ -184,6 +184,7 @@ export type RecipeDetailCardType = {
     ingredients: string[],
     measures: string[],
   },
+  setRecipeIsFinished: (value: boolean) => void;
 };
 
 export type FavoriteRecipeType = {
@@ -215,6 +216,8 @@ export type ButtonsCardType = {
   recipeFood: MealsType | undefined;
 };
 
+export type IngredientsList = { [index:number]: boolean };
+
 export type IsCheckedState = {
-  [id: string]: { [index:number]: boolean }
+  [id: string]: IngredientsList;
 };

@@ -22,9 +22,9 @@ function ButtonsCard({ pathname, id, recipeDrink, recipeFood }: ButtonsCardType)
     } else if (pathname === `/meals/${id}`) {
       navigator.clipboard.writeText(`http://localhost:3000/meals/${id}`);
     } else if (pathname === `/drinks/${id}/in-progress`) {
-      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}/in-progress`);
+      navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
     } else if (pathname === `/meals/${id}/in-progress`) {
-      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}/in-progress`);
+      navigator.clipboard.writeText(`http://localhost:3000/meals/${id}`);
     }
     setTimeout(() => setLinkCopied(false), 1500);
   };

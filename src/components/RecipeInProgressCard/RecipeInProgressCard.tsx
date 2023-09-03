@@ -1,16 +1,72 @@
 import { useEffect, useState } from 'react';
-import { IsCheckedState, RecipeDetailCardType } from '../../types/types';
+import { IngredientsList, IsCheckedState, RecipeDetailCardType } from '../../types/types';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 function RecipeCardInProgress(props: RecipeDetailCardType) {
-  const { foodRecipe, drinkRecipe, recipe } = props;
-  const [isChecked, setIsChecked] = useState<IsCheckedState>({});
+  const {
+    foodRecipe,
+    drinkRecipe,
+    recipe,
+    setRecipeIsFinished,
+  } = props;
+  const {
+    value: localStorage,
+    updateValue: updateLocalStorage,
+  } = useLocalStorage('inProgressRecipes', '{}');
+  const localStorageInProgress = JSON.parse(localStorage);
+  const [isChecked, setIsChecked] = useState<IsCheckedState>(localStorageInProgress);
 
-  const { updateValue } = useLocalStorage('inProgressRecipes', '{}');
-  console.log(isChecked);
+  // insere ingredientes no localStorage com todos os checks em false
+  useEffect(() => {
+    const recipeIngredients = {} as IngredientsList;
+    recipe.ingredients.forEach((ingredient, index) => {
+      recipeIngredients[index] = false;
+    });
+
+    let initialLocalStorage = {};
+    if (foodRecipe) {
+      if (localStorageInProgress[foodRecipe.idMeal] !== undefined) return;
+      initialLocalStorage = {
+        [foodRecipe.idMeal]: recipeIngredients,
+      };
+      setIsChecked({ ...isChecked, ...initialLocalStorage });
+    } else if (drinkRecipe) {
+      if (localStorageInProgress[drinkRecipe.idDrink] !== undefined) return;
+      initialLocalStorage = {
+        [drinkRecipe.idDrink]: recipeIngredients,
+      };
+      setIsChecked({ ...isChecked, ...initialLocalStorage });
+    }
+  }, []);
 
   useEffect(() => {
-    updateValue(JSON.stringify(isChecked));
+    updateLocalStorage(JSON.stringify(isChecked));
+    // checa se a receita está completa
+    if (foodRecipe && isChecked[foodRecipe.idMeal]) {
+      const numberOfChecked = Object.keys(isChecked[foodRecipe.idMeal]).length;
+      if (numberOfChecked === recipe.ingredients.length) {
+        const checkedIngredients = recipe.ingredients.find((_, index) => {
+          return isChecked[foodRecipe.idMeal][index] === false;
+        });
+        if (!checkedIngredients) {
+          return setRecipeIsFinished(true);
+        }
+        return setRecipeIsFinished(false);
+      }
+      return setRecipeIsFinished(false);
+    } if (drinkRecipe && isChecked[drinkRecipe.idDrink]) {
+      const numberOfChecked = Object.keys(isChecked[drinkRecipe.idDrink]).length;
+      if (numberOfChecked === recipe.ingredients.length) {
+        const checkedIngredients = recipe.ingredients.find((_, index) => {
+          return isChecked[drinkRecipe.idDrink][index] === false;
+        });
+        if (!checkedIngredients) {
+          return setRecipeIsFinished(true);
+        }
+        return setRecipeIsFinished(false);
+      }
+      return setRecipeIsFinished(false);
+    }
   }, [isChecked]);
 
   const handleChecked = (id: string, index: number) => {
