@@ -1,6 +1,7 @@
 import { RecipeDetailCardType } from '../../types/types';
+import IngredientsList from '../RecipeInProgressCard/RecipeInProgressCard';
 
-function RecipeCardDetails(props: RecipeDetailCardType) {
+function RecipeCardDetails(props: RecipeDetailCardType, pathname: string) {
   const { foodRecipe, drinkRecipe, recipe } = props;
 
   if (foodRecipe) {
@@ -17,16 +18,14 @@ function RecipeCardDetails(props: RecipeDetailCardType) {
         </h4>
         <h5>Ingredients:</h5>
         <ul>
-          {
-          recipe.ingredients?.map((ingredient, index) => (
+          {recipe.ingredients?.map((ingredient, index) => (
             <li
               key={ ingredient }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               { `${ingredient} - ${recipe.measures?.[index]}` }
             </li>
-          ))
-          }
+          ))}
         </ul>
         <p data-testid="instructions">{foodRecipe.strInstructions}</p>
         <div>

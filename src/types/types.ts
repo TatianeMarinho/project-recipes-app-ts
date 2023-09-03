@@ -7,6 +7,13 @@ export type UseContextType = {
   setFetchedFood: (value: any) => void;
   favoriteRecipes: FavoriteRecipeType[];
   setFavoriteRecipes: (value: any) => void;
+  recipeDrink: DrinksType | undefined;
+  setRecipeDrink: React.Dispatch<React.SetStateAction<DrinksType | undefined>>
+  recipeFood: MealsType | undefined;
+  setRecipeFood: React.Dispatch<React.SetStateAction<MealsType | undefined>>
+  recipe: { ingredients: string[];measures: string[]; };
+  setRecipe: React.Dispatch<React.SetStateAction<{ ingredients: string[];
+    measures: string[]; }>>
 };
 
 export type UseProviderType = {
@@ -15,7 +22,6 @@ export type UseProviderType = {
 
 export type InputsLoginTypes = {
   email: string;
-  password: string;
 };
 
 export type UseLocalStorageType = {
@@ -74,7 +80,16 @@ export type DrinksType = {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
-  strInstructions?: string,
+  strInstructions?: string;
+  strTags: string;
+};
+
+export const DRINK_INICIAL_STATE = {
+  idDrink: '',
+  strDrink: '',
+  strCategory: '',
+  strArea: '',
+  strDrinkThumb: '',
 };
 
 export type MealsType = {
@@ -124,7 +139,15 @@ export type MealsType = {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
-  strYoutube?: string
+  strYoutube?: string;
+  strTags: string;
+};
+
+export const MEALS_INICIAL_STATE = {
+  idMeal: '',
+  strMeal: '',
+  strMealThumb: '',
+  strArea: '',
 };
 
 export const INITIAL_LOGIN = {
@@ -162,6 +185,7 @@ export type RecipeDetailCardType = {
     ingredients: string[],
     measures: string[],
   },
+  setRecipeIsFinished: (value: boolean) => void;
 };
 
 export type FavoriteRecipeType = {
@@ -175,3 +199,26 @@ export type FavoriteRecipeType = {
 };
 
 export const PAGETITLE = 'page-title';
+
+export const INITIAL_RECIPE_STATE = {
+  ingredients: [''],
+  measures: [''],
+};
+
+export type RecipeState = {
+  ingredients: string[];
+  measures: string[];
+};
+
+export type ButtonsCardType = {
+  pathname: string;
+  id:string | undefined;
+  recipeDrink: DrinksType | undefined;
+  recipeFood: MealsType | undefined;
+};
+
+export type IngredientsList = { [index:number]: boolean };
+
+export type IsCheckedState = {
+  [id: string]: IngredientsList;
+};

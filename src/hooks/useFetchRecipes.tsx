@@ -13,7 +13,6 @@ function useFetchRecipes() {
       .then((result) => result.json())
       .then((data) => handleSetFood(data.meals))
       .catch(() => window.alert(noRecipeFound));
-    console.log('FetchFoodInitial');
   };
 
   const fetchDrinksInitial = async () => {
@@ -21,7 +20,6 @@ function useFetchRecipes() {
       .then((result) => result.json())
       .then((data) => handleSetDrinks(data.drinks))
       .catch(() => window.alert(noRecipeFound));
-    console.log('FetchDrinksInitial');
   };
 
   const handleSetDrinks = (data: DrinksType[]) => {
