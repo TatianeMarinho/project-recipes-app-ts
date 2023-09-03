@@ -4,10 +4,12 @@ import ContextRecipesApp from '../../context/user-context';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import useFetchRecipes from '../../hooks/useFetchRecipes';
 import useFetchCategories from '../../hooks/useFetchCategories';
+import { DRINK_INICIAL_STATE, MEALS_INICIAL_STATE } from '../../types/types';
 
 function Recipes() {
   const { pathname } = useLocation();
-  const { fetchedFood, fetchedDrinks } = useContext(ContextRecipesApp);
+  const { fetchedFood, fetchedDrinks, setRecipeDrink, setRecipeFood,
+  } = useContext(ContextRecipesApp);
   const [filterActive, setFilterActive] = useState(false);
   const {
     foodCategories,
@@ -24,9 +26,11 @@ function Recipes() {
     if (pathname === '/meals') {
       fetchFoodInitial();
       fetchFoodCategories();
+      setRecipeFood(MEALS_INICIAL_STATE);
     } else {
       fetchDrinksInitial();
       fetchDrinksCategories();
+      setRecipeDrink(DRINK_INICIAL_STATE);
     }
   }, [pathname]);
 
