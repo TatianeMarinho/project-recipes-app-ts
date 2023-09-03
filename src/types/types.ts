@@ -81,7 +81,8 @@ export type DrinksType = {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
-  strInstructions?: string,
+  strInstructions?: string;
+  strTags: string;
 };
 
 export const DRINK_INICIAL_STATE = {
@@ -139,7 +140,8 @@ export type MealsType = {
   strMeasure18?: string;
   strMeasure19?: string;
   strMeasure20?: string;
-  strYoutube?: string
+  strYoutube?: string;
+  strTags: string;
 };
 
 export const MEALS_INICIAL_STATE = {
