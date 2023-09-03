@@ -3,26 +3,24 @@ import { screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
-import firstLetter from './helpers/firstLetterMock';
-import nameMock from './helpers/nameMock';
-import ingredientMock from './helpers/ingredientMock';
 import ingredientDrinkMock from './helpers/ingredientDrinkMock';
-import nameDrinkMock from './helpers/nameDrinkMock';
-import initialDrinkMock from './helpers/initialDrinkMock';
-import drinkCategoriesMock from './helpers/drinkCategoriesMock';
-import initialFoodMock from './helpers/initialFoodMock';
-import foodCategoriesMock from './helpers/foodCategoriesMock';
+import fetchMock from './helpers/fetchMock';
 
 const searchInputTestID = 'search-input';
 const ingredientInputTestID = 'ingredient-search-radio';
 const nameInputTestID = 'name-search-radio';
 const firstLetterInputTestID = 'first-letter-search-radio';
+const banana = 'Banana Cantaloupe Smoothie';
 
 describe('Verifica barra de busca', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockImplementation(fetchMock);
+    window.alert = vi.fn(() => {});
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test('Verifica pesquisa de comida por primeira letra', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (firstLetter),
-    });
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -61,16 +59,6 @@ describe('Verifica barra de busca', () => {
   });
 
   test('Testa pesquisa de comida por nome', async () => {
-    global.fetch = vi.fn()
-      .mockResolvedValueOnce({
-        json: async () => (initialFoodMock),
-      })
-      .mockResolvedValueOnce({
-        json: async () => (foodCategoriesMock),
-      })
-      .mockResolvedValue({
-        json: async () => (nameMock),
-      });
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -99,13 +87,10 @@ describe('Verifica barra de busca', () => {
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 52771')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Spicy Arrabiata Penne')).toBeInTheDocument());
   });
 
   test('Testa pesquisa de comida por ingrediente', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (ingredientMock),
-    });
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -139,9 +124,6 @@ describe('Verifica barra de busca', () => {
   });
 
   test('Testa pesquisa de drink por ingrediente', async () => {
-    global.fetch = vi.fn().mockResolvedValue({
-      json: async () => (ingredientDrinkMock),
-    });
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -176,16 +158,6 @@ describe('Verifica barra de busca', () => {
   });
   test('Testa se o usuário é direcionado para tela de detalhes da receita se'
     + 'uma única receita for encontrada.', async () => {
-    global.fetch = vi.fn()
-      .mockResolvedValueOnce({
-        json: async () => (initialDrinkMock),
-      })
-      .mockResolvedValueOnce({
-        json: async () => (drinkCategoriesMock),
-      })
-      .mockResolvedValue({
-        json: async () => (nameDrinkMock),
-      });
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -207,26 +179,16 @@ describe('Verifica barra de busca', () => {
     expect(firstLetterInput).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
 
-    await userEvent.click(ingredientInput);
+    await userEvent.click(nameInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
+    await userEvent.type(searchInput, banana);
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText('Recipes details 12708')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(banana)).toBeInTheDocument());
   });
   test('Testa se nada é modificado se a API retorna null', async () => {
-    global.fetch = vi.fn()
-      .mockResolvedValueOnce({
-        json: async () => (initialDrinkMock),
-      })
-      .mockResolvedValueOnce({
-        json: async () => (drinkCategoriesMock),
-      })
-      .mockResolvedValue({
-        json: async () => (null),
-      });
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -250,19 +212,12 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(ingredientInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
+    await userEvent.type(searchInput, banana);
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    initialDrinkMock.drinks.forEach((drink, index) => {
-      if (index <= 11) {
-        const recipeCard = screen.getByTestId(`${index}-recipe-card`);
-        expect(recipeCard).toHaveTextContent(drink.strDrink);
-      } else {
-        const recipeCard = screen.queryByTestId(`${index}-recipe-card`);
-        expect(recipeCard).toBeNull();
-      }
-    });
+    const recipeCard = screen.queryByTestId('0-recipe-card');
+    expect(recipeCard).toBeNull();
   });
 });

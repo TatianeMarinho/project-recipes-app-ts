@@ -1,13 +1,22 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import App from '../App';
 import { PAGETITLE } from '../types/types';
 import { renderWithRouter } from './helpers/renderWith';
+import fetchMock from './helpers/fetchMock';
 
 const drinks = 'drinks-bottom-btn';
 const meals = 'meals-bottom-btn';
 
 describe('Verifica se o componente Footer é renderizado corretamente', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockImplementation(fetchMock);
+    window.alert = vi.fn(() => {});
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test('Verifica a renderizaçao do Footer no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 

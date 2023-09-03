@@ -1,8 +1,10 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
 import { PAGETITLE } from '../types/types';
+import fetchMock from './helpers/fetchMock';
 
 const emailInputTestId = 'email-input';
 const passwordInputTestId = 'password-input';
@@ -11,6 +13,13 @@ const validEmail = 'valid@email.com';
 const validPassword = '7895812';
 
 describe('Testando a página de Login', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn().mockImplementation(fetchMock);
+    window.alert = vi.fn(() => {});
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   test('Renderiza o input email', () => {
     renderWithRouter(<App />);
 
