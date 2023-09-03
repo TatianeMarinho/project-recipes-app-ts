@@ -20,6 +20,7 @@ describe('Testando a página de Login', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
+
   test('Renderiza o input email', () => {
     renderWithRouter(<App />);
 

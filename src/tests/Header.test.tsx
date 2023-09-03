@@ -16,6 +16,7 @@ describe('Verifica se o componente Header é renderizado corretamente', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
+
   test('Verifica a renderizaçao do Header no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 

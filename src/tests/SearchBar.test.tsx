@@ -10,7 +10,6 @@ const searchInputTestID = 'search-input';
 const ingredientInputTestID = 'ingredient-search-radio';
 const nameInputTestID = 'name-search-radio';
 const firstLetterInputTestID = 'first-letter-search-radio';
-const banana = 'Banana Cantaloupe Smoothie';
 
 describe('Verifica barra de busca', () => {
   beforeEach(() => {
@@ -20,6 +19,7 @@ describe('Verifica barra de busca', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
+
   test('Verifica pesquisa de comida por primeira letra', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });
 
@@ -181,14 +181,15 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(nameInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, banana);
+    await userEvent.type(searchInput, 'Aviation');
+    screen.debug();
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    await waitFor(() => expect(screen.getByText(banana)).toBeInTheDocument());
+    await screen.findByText('Aviation');
   });
-  test('Testa se nada é modificado se a API retorna null', async () => {
+  test('Testa se alerta é chamado se a API retorna null', async () => {
     renderWithRouter(<App />, { initialEntries: ['/drinks'] });
 
     const btnSearch = screen.getByRole('button', { name: /icone de pesquisa/i });
@@ -212,12 +213,11 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(ingredientInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, banana);
+    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
 
     await userEvent.click(searchButton);
 
     expect(global.fetch).toBeCalledTimes(3);
-    const recipeCard = screen.queryByTestId('0-recipe-card');
-    expect(recipeCard).toBeNull();
+    expect(window.alert).toHaveBeenCalled();
   });
 });

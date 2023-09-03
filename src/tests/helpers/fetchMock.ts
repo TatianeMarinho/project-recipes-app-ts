@@ -40,7 +40,7 @@ const fetchMock = (url: any) => {
           return Promise.resolve(nameMock);
         case 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Banana':
           return Promise.resolve(ingredientDrinkMock);
-        case 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Banana Cantaloupe Smoothie':
+        case 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aviation':
           return Promise.resolve(nameDrinkMock);
         default:
           return Promise.resolve({});

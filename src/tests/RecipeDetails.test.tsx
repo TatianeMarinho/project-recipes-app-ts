@@ -42,7 +42,7 @@ describe('Verifica se a pagina RecipeDetails é renderizada corretamente', () =>
 
     const startRecipe = screen.getByTestId('start-recipe-btn');
     await userEvent.click(startRecipe);
-    screen.findByText('RecipeInProgress 52977');
+    await screen.findByRole('button', { name: /finish recipe/i });
   });
   test('Testa os botões de compartilhar e favoritar na pagina meals', async () => {
     userEvent.setup();
@@ -102,6 +102,6 @@ describe('Verifica se a pagina RecipeDetails é renderizada corretamente', () =>
     });
     const startRecipe = screen.getByTestId('start-recipe-btn');
     await userEvent.click(startRecipe);
-    screen.findByText('RecipeInProgress 15997');
+    await screen.findByRole('button', { name: /finish recipe/i });
   });
 });
