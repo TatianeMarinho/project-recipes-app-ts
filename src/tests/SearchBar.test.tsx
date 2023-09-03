@@ -213,7 +213,7 @@ describe('Verifica barra de busca', () => {
 
     await userEvent.click(ingredientInput);
     await userEvent.clear(searchInput);
-    await userEvent.type(searchInput, banana);
+    await userEvent.type(searchInput, 'Banana Cantaloupe Smoothie');
 
     await userEvent.click(searchButton);
 
