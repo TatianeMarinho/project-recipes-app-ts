@@ -1,18 +1,21 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 import { PAGETITLE } from '../types/types';
 import fetchMock from './helpers/fetchMock';
-import { vi } from 'vitest';
 
 describe('Verifica se o componente Header é renderizado corretamente', () => {
-
   beforeEach(() => {
-    global.fetch = vi.fn(fetchMock)
-  })
+    global.fetch = vi.fn().mockImplementation(fetchMock);
+    window.alert = vi.fn(() => {});
+  });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
   test('Verifica a renderizaçao do Header no /meals', async () => {
     renderWithRouter(<App />, { initialEntries: ['/meals'] });

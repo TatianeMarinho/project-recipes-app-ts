@@ -3,15 +3,7 @@ import { screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 import { renderWithRouter } from './helpers/renderWith';
 import App from '../App';
-import firstLetter from './helpers/firstLetterMock';
-import nameMock from './helpers/nameMock';
-import ingredientMock from './helpers/ingredientMock';
 import ingredientDrinkMock from './helpers/ingredientDrinkMock';
-import nameDrinkMock from './helpers/nameDrinkMock';
-import initialDrinkMock from './helpers/initialDrinkMock';
-import drinkCategoriesMock from './helpers/drinkCategoriesMock';
-import initialFoodMock from './helpers/initialFoodMock';
-import foodCategoriesMock from './helpers/foodCategoriesMock';
 import fetchMock from './helpers/fetchMock';
 
 const searchInputTestID = 'search-input';
