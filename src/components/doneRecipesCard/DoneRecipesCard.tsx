@@ -27,22 +27,26 @@ function DoneRecipesCard(props: DoneRecipesCardPropsType) {
             Link copied!
           </p>)}
         <button
-          data-testid="share-btn"
-          className={ `${idx}-horizontal-share-btn` }
           onClick={ handleShareClick }
         >
-          <img src={ shareIcon } alt="Share icon" />
+          <img
+            src={ shareIcon }
+            alt="Share icon"
+            data-testid={ `${idx}-horizontal-share-btn` }
+          />
         </button>
       </div>
       <h1 data-testid={ `${idx}-horizontal-name` }>{name}</h1>
-      <h3 data-testid={ `${idx}-horizontal-top-text` }>{category}</h3>
+      <h3 data-testid={ `${idx}-horizontal-top-text` }>
+        {alcoholicOrNot || `${nationality} - ${category}`}
+      </h3>
       <h4 data-testid={ `${idx}-horizontal-done-date` }>{doneDate}</h4>
       {tags && (
         <ul>
-          {tags.map((tag, index) => (
+          {tags.map((tag) => (
             <li
               key={ tag }
-              data-testid={ `${index}-${tag}-horizontal-tag` }
+              data-testid={ `${idx}-${tag}-horizontal-tag` }
             >
               {tag}
             </li>
