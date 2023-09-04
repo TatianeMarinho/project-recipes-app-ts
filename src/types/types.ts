@@ -90,6 +90,7 @@ export const DRINK_INICIAL_STATE = {
   strCategory: '',
   strArea: '',
   strDrinkThumb: '',
+  strTags: '',
 };
 
 export type MealsType = {
@@ -148,6 +149,7 @@ export const MEALS_INICIAL_STATE = {
   strMeal: '',
   strMealThumb: '',
   strArea: '',
+  strTags: '',
 };
 
 export const INITIAL_LOGIN = {
@@ -221,4 +223,21 @@ export type IngredientsList = { [index:number]: boolean };
 
 export type IsCheckedState = {
   [id: string]: IngredientsList;
+};
+
+export type DoneRecipesCardType = {
+  alcoholicOrNot?: string;
+  category: string;
+  doneDate: string;
+  id: string;
+  image: string;
+  name: string;
+  nationality: string;
+  tags: [string];
+  type: string;
+};
+
+export type DoneRecipesCardPropsType = {
+  recipe: DoneRecipesCardType;
+  idx: number;
 };
