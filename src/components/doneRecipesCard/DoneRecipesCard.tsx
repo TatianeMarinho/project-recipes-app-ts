@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DoneRecipesCardPropsType } from '../../types/types';
 import shareIcon from '../../images/shareIcon.svg';
 
@@ -36,7 +37,12 @@ function DoneRecipesCard(props: DoneRecipesCardPropsType) {
           />
         </button>
       </div>
-      <h1 data-testid={ `${idx}-horizontal-name` }>{name}</h1>
+      <Link
+        key={ `name-link-${id}` }
+        to={ type === 'meal' ? `/meals/${id}` : `/drinks/${id}` }
+      >
+        <h1 data-testid={ `${idx}-horizontal-name` }>{name}</h1>
+      </Link>
       <h3 data-testid={ `${idx}-horizontal-top-text` }>
         {alcoholicOrNot || `${nationality} - ${category}`}
       </h3>
@@ -52,11 +58,16 @@ function DoneRecipesCard(props: DoneRecipesCardPropsType) {
             </li>
           ))}
         </ul>)}
-      <img
-        src={ image }
-        alt={ `${name} figura` }
-        data-testid={ `${idx}-horizontal-image` }
-      />
+      <Link
+        key={ `image-link-${id}` }
+        to={ type === 'meal' ? `/meals/${id}` : `/drinks/${id}` }
+      >
+        <img
+          src={ image }
+          alt={ `${name} figura` }
+          data-testid={ `${idx}-horizontal-image` }
+        />
+      </Link>
     </div>
   );
 }
