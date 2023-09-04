@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { DoneRecipesCardType } from '../../types/types';
+import { DoneRecipesCardPropsType } from '../../types/types';
 import shareIcon from '../../images/shareIcon.svg';
 
-function DoneRecipesCard(recipe: DoneRecipesCardType, idx: number) {
+function DoneRecipesCard(props: DoneRecipesCardPropsType) {
+  const { recipe, idx } = props;
   const { alcoholicOrNot, category,
     doneDate, id, image, name, nationality, tags, type } = recipe;
 
@@ -36,18 +37,17 @@ function DoneRecipesCard(recipe: DoneRecipesCardType, idx: number) {
       <h1 data-testid={ `${idx}-horizontal-name` }>{name}</h1>
       <h3 data-testid={ `${idx}-horizontal-top-text` }>{category}</h3>
       <h4 data-testid={ `${idx}-horizontal-done-date` }>{doneDate}</h4>
-      <ul>
-        {
-            tags.map((tag, index) => (
-              <li
-                key={ tag }
-                data-testid={ `${index}-${tag}-horizontal-tag` }
-              >
-                {tag}
-              </li>
-            ))
-}
-      </ul>
+      {tags && (
+        <ul>
+          {tags.map((tag, index) => (
+            <li
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>)}
       <img
         src={ image }
         alt={ `${name} figura` }

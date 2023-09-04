@@ -234,3 +234,8 @@ export type DoneRecipesCardType = {
   tags: [string];
   type: string;
 };
+
+export type DoneRecipesCardPropsType = {
+  recipe: DoneRecipesCardType;
+  idx: number;
+};
