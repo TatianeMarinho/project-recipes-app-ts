@@ -222,3 +222,15 @@ export type IngredientsList = { [index:number]: boolean };
 export type IsCheckedState = {
   [id: string]: IngredientsList;
 };
+
+export type DoneRecipesCardType = {
+  alcoholicOrNot?: string;
+  category: string;
+  doneDate: string;
+  id: string;
+  image: string;
+  name: string;
+  nationality: string;
+  tags: [string];
+  type: string;
+};

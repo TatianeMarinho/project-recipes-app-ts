@@ -1,7 +1,6 @@
 import { RecipeDetailCardType } from '../../types/types';
-import IngredientsList from '../RecipeInProgressCard/RecipeInProgressCard';
 
-function RecipeCardDetails(props: RecipeDetailCardType, pathname: string) {
+function RecipeCardDetails(props: RecipeDetailCardType) {
   const { foodRecipe, drinkRecipe, recipe } = props;
 
   if (foodRecipe) {
