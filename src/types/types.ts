@@ -90,6 +90,7 @@ export const DRINK_INICIAL_STATE = {
   strCategory: '',
   strArea: '',
   strDrinkThumb: '',
+  strTags: '',
 };
 
 export type MealsType = {
@@ -148,6 +149,7 @@ export const MEALS_INICIAL_STATE = {
   strMeal: '',
   strMealThumb: '',
   strArea: '',
+  strTags: '',
 };
 
 export const INITIAL_LOGIN = {
